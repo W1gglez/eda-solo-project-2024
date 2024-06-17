@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body,
 #react-root {
@@ -109,4 +113,10 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  right: 45vw;
 }
