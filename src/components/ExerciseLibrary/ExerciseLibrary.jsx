@@ -1,15 +1,13 @@
-import { Button } from '@nextui-org/react';
-import { useDispatch, useSelector } from 'react-redux';
+import ExerciseSearch from '../ExerciseSearch/ExerciseSearch';
 
 export default function ExerciseLibrary() {
-  const dispatch = useDispatch();
-
   return (
     <>
       {/* workout log/calorie log buttons */}
-      <Button color='primary'>Workout Log</Button>
-      <Button>Calorie Tracker</Button>
+      <button>Workout Log</button>
+      <button>Calorie Tracker</button>
       {/* Search Bar */}
+      <ExerciseSearch />
 
       {/* /Musclegroup widgets? */}
     </>

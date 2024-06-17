@@ -9,6 +9,5 @@ const calorieLog = (state = {}, action) => {
   }
 };
 
-export default combineReducers({
-  calorieLog,
-});
+export default calorieLog;
+

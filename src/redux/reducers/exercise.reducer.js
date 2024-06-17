@@ -1,6 +1,4 @@
-import { combineReducers } from 'redux';
-
-const exercises = (state = [], action) => {
+const exercises = (state = {}, action) => {
   switch (action.type) {
     case 'SET_EXERCISES':
       return action.payload;
@@ -9,6 +7,4 @@ const exercises = (state = [], action) => {
   }
 };
 
-export default combineReducers({
-  exercises,
-});
+export default exercises;
