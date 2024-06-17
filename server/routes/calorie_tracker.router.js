@@ -52,7 +52,7 @@ router.post('/add-log-entry', rejectUnauthenticated, async (req, res) => {
 
   try {
     const query =
-      'INSERT INTO cl_entry (log_id, "name" ,calories, protein, carbs, fats) VALUES ($1, $2, $3, $4, $5, $6, $7);';
+      'INSERT INTO cl_entry (log_id, "name" ,calories, protein, carbs, fats) VALUES ($1, $2, $3, $4, $5, $6);';
 
     await pool.query(query, [log_id, name, calories, protein, carbs, fats]);
     res.sendStatus(201);
