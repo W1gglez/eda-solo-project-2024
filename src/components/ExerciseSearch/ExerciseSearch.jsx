@@ -4,16 +4,16 @@ import ExerciseDisplay from '../ExerciseDisplay/ExerciseDisplay';
 import ExerciseSearchByMuscleGroup from '../ExerciseSearchByMuscleGroup/ExerciseSearchByMuscleGroup';
 
 export default function ExerciseSearch() {
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
+  const [searchQuery, setSearch] = useState({ search: '', page: 1 });
   const [display, setDisplay] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: 'FETCH_EXERCISES', payload: { search } });
+    console.log(searchQuery);
+    dispatch({ type: 'FETCH_EXERCISES', payload: searchQuery });
     setDisplay(true);
-    setSearch('');
+    setSearch({ ...searchQuery, search: '' });
   };
 
   return (
@@ -21,12 +21,21 @@ export default function ExerciseSearch() {
       <form onSubmit={handleSubmit}>
         <input
           type='text'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchQuery.search}
+          onChange={(e) =>
+            setSearch({ ...searchQuery, search: e.target.value })
+          }
           placeholder='Search'
         />
       </form>
-      {display ? <ExerciseDisplay /> : <ExerciseSearchByMuscleGroup />}
+      {display ? (
+        <ExerciseDisplay
+          search={searchQuery}
+          setSearch={setSearch}
+        />
+      ) : (
+        <ExerciseSearchByMuscleGroup setDisplay={setDisplay} />
+      )}
     </>
   );
 }

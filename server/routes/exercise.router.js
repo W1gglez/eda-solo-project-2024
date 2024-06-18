@@ -7,20 +7,22 @@ const {
 
 router.get('/', async (req, res) => {
   // Validate and get query parameters
-  const searchQuery = req.query.search || '';
+  const searchQuery = req.query.musclegroup ?? (req.query.search || '');
   const page = parseInt(req.query.page, 10) || 1;
   const pageSize = 25;
   const offset = (page - 1) * pageSize;
+  console.log('Search Query', typeof searchQuery);
 
   // Determine if the search is for a muscle group or exercise name
-  const isMuscleGroupSearch = req.query.musclegroup || '';
+  const isMuscleGroupSearch = req.query.musclegroup || undefined;
 
   let query;
   let queryParams;
+  let countQuery;
 
   if (isMuscleGroupSearch) {
     query = `
-      SELECT exercises.id, exercises.name as exercise_name, STRING_AGG(musclegroups.name, ', ') as musclegroup_name 
+      SELECT exercises.id, exercises.name as name, STRING_AGG(musclegroups.name, ', ') as musclegroup_name 
       FROM exercise_muscles
       JOIN exercises ON exercise_muscles.exercise_id = exercises.id 
       JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
@@ -29,7 +31,11 @@ router.get('/', async (req, res) => {
       LIMIT $2 
       OFFSET $3;
     `;
-    queryParams = [`%${req.query.musclegroup}%`, pageSize, offset];
+    queryParams = [`%${searchQuery}%`, pageSize, offset];
+    countQuery = `SELECT COUNT(exercises.id) FROM exercises 
+JOIN exercise_muscles ON exercise_muscles.exercise_id = exercises.id 
+JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
+WHERE "musclegroups"."name" ILIKE $1;`;
   } else {
     query = `
       SELECT exercises.id, exercises.name 
@@ -40,11 +46,17 @@ router.get('/', async (req, res) => {
       OFFSET $3;
     `;
     queryParams = [`%${searchQuery}%`, pageSize, offset];
+    countQuery = `SELECT COUNT(*) FROM exercises WHERE name ILIKE $1;`;
   }
 
   try {
+    const countResult = await pool.query(countQuery, [`%${searchQuery}%`]);
+    const totalRows = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalRows / pageSize);
+
     const result = await pool.query(query, queryParams);
-    res.send(result.rows);
+
+    res.send({ data: result.rows, totalPages });
   } catch (err) {
     console.error('Error processing GET exercises', err);
     res.sendStatus(500);
@@ -59,13 +71,13 @@ router.get('/', async (req, res) => {
 //   const pageSize = 25;
 
 //   const query = `
-//     SELECT exercises.id, "exercises"."name" as exercise_name, STRING_AGG("musclegroups"."name", ', ') as musclegroup_name 
+//     SELECT exercises.id, "exercises"."name" as exercise_name, STRING_AGG("musclegroups"."name", ', ') as musclegroup_name
 //     FROM exercise_muscles
-//     JOIN exercises ON exercise_muscles.exercise_id = exercises.id 
-//     JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
-//     WHERE "musclegroups"."name" ILIKE $1 
-//     GROUP BY exercises.id 
-//     LIMIT $2 
+//     JOIN exercises ON exercise_muscles.exercise_id = exercises.id
+//     JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id
+//     WHERE "musclegroups"."name" ILIKE $1
+//     GROUP BY exercises.id
+//     LIMIT $2
 //     OFFSET $3;
 //     `;
 //   const searchTerm = `%${searchQuery}%`;
@@ -98,6 +110,17 @@ router.get('/', async (req, res) => {
 //     res.sendStatus(500);
 //   }
 // });
+
+router.get('/musclegroups', async (req, res) => {
+  const query = 'SELECT * FROM musclegroups;';
+  try {
+    const result = await pool.query(query);
+    res.send(result.rows);
+  } catch (err) {
+    console.error('Error processing GET muscle groups', err);
+    res.sendStatus(500);
+  }
+});
 
 
 //Given an exercise id returns all fields for that exercise
