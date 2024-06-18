@@ -1,4 +1,4 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLeading, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchCalorieLog(action) {
@@ -51,11 +51,11 @@ function* removeEntry(action) {
 }
 
 function* calorieLogSaga() {
-  yield takeLatest('FETCH_CALORIE_LOG', fetchCalorieLog);
-  yield takeLatest('CREATE_LOG', createNewLog);
-  yield takeLatest('ADD_ENTRY', addLogEntry);
-  yield takeLatest('UPDATE_ENTRY', updateEntry);
-  yield takeLatest('DELETE_ENTRY', removeEntry);
+  yield takeLeading('FETCH_CALORIE_LOG', fetchCalorieLog);
+  yield takeLeading('CREATE_LOG', createNewLog);
+  yield takeLeading('ADD_ENTRY', addLogEntry);
+  yield takeLeading('UPDATE_ENTRY', updateEntry);
+  yield takeLeading('DELETE_ENTRY', removeEntry);
 }
 
 export default calorieLogSaga;

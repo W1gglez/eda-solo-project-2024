@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLeading } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "REGISTER" actions
@@ -23,7 +23,7 @@ function* registerUser(action) {
 }
 
 function* registrationSaga() {
-  yield takeLatest('REGISTER', registerUser);
+  yield takeLeading('REGISTER', registerUser);
 }
 
 export default registrationSaga;

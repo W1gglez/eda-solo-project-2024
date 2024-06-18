@@ -1,8 +1,6 @@
-import { combineReducers } from 'redux';
-
 const calorieLog = (state = {}, action) => {
   switch (action.type) {
-    case 'SET_CALORIE_LOG':
+    case 'SET_CALORIE':
       return action.payload;
     default:
       return state;
@@ -10,4 +8,3 @@ const calorieLog = (state = {}, action) => {
 };
 
 export default calorieLog;
-

@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLeading } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "LOGIN" actions
@@ -59,8 +59,8 @@ function* logoutUser(action) {
 }
 
 function* loginSaga() {
-  yield takeLatest('LOGIN', loginUser);
-  yield takeLatest('LOGOUT', logoutUser);
+  yield takeLeading('LOGIN', loginUser);
+  yield takeLeading('LOGOUT', logoutUser);
 }
 
 export default loginSaga;

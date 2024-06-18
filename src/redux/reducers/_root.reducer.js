@@ -4,6 +4,7 @@ import user from './user.reducer';
 import calorieLog from './calorie_log.reducer';
 import exercises from './exercise.reducer';
 import musclegroups from './musclegroup.reducer';
+import workout_log from './workout.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   calorieLog,
   exercises,
   musclegroups,
+  workout_log,
 });
 
 export default rootReducer;

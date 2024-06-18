@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLeading, put } from 'redux-saga/effects';
 
 function* fetchExercises(action) {
   let { search, page, musclegroup } = action.payload;
@@ -33,6 +33,6 @@ function* fetchMusclegroups(action) {
 }
 
 export default function* exerciseSaga() {
-  yield takeLatest('FETCH_EXERCISES', fetchExercises);
-  yield takeLatest('FETCH_MUSCLEGROUPS', fetchMusclegroups);
+  yield takeLeading('FETCH_EXERCISES', fetchExercises);
+  yield takeLeading('FETCH_MUSCLEGROUPS', fetchMusclegroups);
 }
