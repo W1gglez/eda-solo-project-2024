@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ExerciseDisplay from '../ExerciseDisplay/ExerciseDisplay';
+import ExerciseSearchByMuscleGroup from '../ExerciseSearchByMuscleGroup/ExerciseSearchByMuscleGroup';
 
 export default function ExerciseSearch() {
   const [search, setSearch] = useState('');
@@ -25,7 +26,7 @@ export default function ExerciseSearch() {
           placeholder='Search'
         />
       </form>
-      {display ? <ExerciseDisplay /> : <></>}
+      {display ? <ExerciseDisplay /> : <ExerciseSearchByMuscleGroup />}
     </>
   );
 }

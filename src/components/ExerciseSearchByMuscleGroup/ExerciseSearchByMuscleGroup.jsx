@@ -1,11 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 export default function ExerciseSearchByMuscleGroup() {
   const dispatch = useDispatch();
   const musclegroups = useSelector((store) => store.musclegroups);
 
+  useEffect(() => {
+    useDispatch({ type: 'FETCH_MUSCLEGROUPS' });
+  }, []);
+
   const handleClick = (e) => {
-    dis;
+    dispatch({ type: 'FETCH_EXERCISES', payload: { search: e.target.value } });
   };
 
   return (

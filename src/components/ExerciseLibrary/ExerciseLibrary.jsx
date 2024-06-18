@@ -6,10 +6,10 @@ export default function ExerciseLibrary() {
       {/* workout log/calorie log buttons */}
       <button>Workout Log</button>
       <button>Calorie Tracker</button>
-      {/* Search Bar */}
+      {/* Normal Search */}
       <ExerciseSearch />
 
-      {/* /Musclegroup widgets? */}
+      {/* /Search via musclegroup */}
     </>
   );
 }

@@ -5,53 +5,99 @@ const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 
-//Return exercises filtered by musclegroup
-router.get('/bymusclegroup', async (req, res) => {
-  // Validate and get query parameters
-  const searchQuery = req.query.search;
-  const page = parseInt(req.query.page, 10) || 1;
-  const pageSize = 25;
-
-  const query = `
-    SELECT exercises.id, "exercises"."name" as exercise_name, STRING_AGG("musclegroups"."name", ', ') as musclegroup_name 
-    FROM exercise_muscles
-    JOIN exercises ON exercise_muscles.exercise_id = exercises.id 
-    JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
-    WHERE "musclegroups"."name" ILIKE $1 
-    GROUP BY exercises.id 
-    LIMIT $2 
-    OFFSET $3;
-    `;
-  const searchTerm = `%${searchQuery}%`;
-  const offset = (page - 1) * pageSize;
-
-  try {
-    const result = await pool.query(query, [searchTerm, pageSize, offset]);
-    res.send(result.rows);
-  } catch (err) {
-    console.error('Error processing GET exercises', err);
-    res.sendStatus(500);
-  }
-});
-
-//Returns results containing searchQuery paginated or all results 25 at a time
 router.get('/', async (req, res) => {
   // Validate and get query parameters
   const searchQuery = req.query.search || '';
   const page = parseInt(req.query.page, 10) || 1;
+  const pageSize = 25;
+  const offset = (page - 1) * pageSize;
 
-  const query = `SELECT exercises.id, exercises.name FROM exercises WHERE name ILIKE $1 ORDER BY id LIMIT 25 OFFSET $2 ;`;
-  const searchTerm = `%${searchQuery}%`;
-  const offset = (page - 1) * 25;
+  // Determine if the search is for a muscle group or exercise name
+  const isMuscleGroupSearch = req.query.musclegroup || '';
+
+  let query;
+  let queryParams;
+
+  if (isMuscleGroupSearch) {
+    query = `
+      SELECT exercises.id, exercises.name as exercise_name, STRING_AGG(musclegroups.name, ', ') as musclegroup_name 
+      FROM exercise_muscles
+      JOIN exercises ON exercise_muscles.exercise_id = exercises.id 
+      JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
+      WHERE musclegroups.name ILIKE $1 
+      GROUP BY exercises.id 
+      LIMIT $2 
+      OFFSET $3;
+    `;
+    queryParams = [`%${req.query.musclegroup}%`, pageSize, offset];
+  } else {
+    query = `
+      SELECT exercises.id, exercises.name 
+      FROM exercises 
+      WHERE exercises.name ILIKE $1 
+      ORDER BY exercises.id 
+      LIMIT $2 
+      OFFSET $3;
+    `;
+    queryParams = [`%${searchQuery}%`, pageSize, offset];
+  }
 
   try {
-    const result = await pool.query(query, [searchTerm, offset]);
+    const result = await pool.query(query, queryParams);
     res.send(result.rows);
   } catch (err) {
     console.error('Error processing GET exercises', err);
     res.sendStatus(500);
   }
 });
+
+//Return exercises filtered by musclegroup
+// router.get('/bymusclegroup', async (req, res) => {
+//   // Validate and get query parameters
+//   const searchQuery = req.query.search;
+//   const page = parseInt(req.query.page, 10) || 1;
+//   const pageSize = 25;
+
+//   const query = `
+//     SELECT exercises.id, "exercises"."name" as exercise_name, STRING_AGG("musclegroups"."name", ', ') as musclegroup_name 
+//     FROM exercise_muscles
+//     JOIN exercises ON exercise_muscles.exercise_id = exercises.id 
+//     JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
+//     WHERE "musclegroups"."name" ILIKE $1 
+//     GROUP BY exercises.id 
+//     LIMIT $2 
+//     OFFSET $3;
+//     `;
+//   const searchTerm = `%${searchQuery}%`;
+//   const offset = (page - 1) * pageSize;
+
+//   try {
+//     const result = await pool.query(query, [searchTerm, pageSize, offset]);
+//     res.send(result.rows);
+//   } catch (err) {
+//     console.error('Error processing GET exercises', err);
+//     res.sendStatus(500);
+//   }
+// });
+
+// //Returns results containing searchQuery paginated or all results 25 at a time
+// router.get('/', async (req, res) => {
+//   // Validate and get query parameters
+//   const searchQuery = req.query.search || '';
+//   const page = parseInt(req.query.page, 10) || 1;
+
+//   const query = `SELECT exercises.id, exercises.name FROM exercises WHERE name ILIKE $1 ORDER BY id LIMIT 25 OFFSET $2 ;`;
+//   const searchTerm = `%${searchQuery}%`;
+//   const offset = (page - 1) * 25;
+
+//   try {
+//     const result = await pool.query(query, [searchTerm, offset]);
+//     res.send(result.rows);
+//   } catch (err) {
+//     console.error('Error processing GET exercises', err);
+//     res.sendStatus(500);
+//   }
+// });
 
 
 //Given an exercise id returns all fields for that exercise

@@ -2,10 +2,10 @@ import axios from 'axios';
 import { takeLatest, put, take } from 'redux-saga/effects';
 
 function* fetchExercises(action) {
-  const { search, page } = action.payload;
+  const { search, page, musclegroup } = action.payload;
   try {
     const result = yield axios.get(
-      `/api/exercise?search=${search}&page=${page}`
+      `/api/exercise?search=${search}&musclegroup=${musclegroup}&page=${page}`
     );
     console.log(result);
     yield put({ type: 'SET_EXERCISES', payload: result.data });
@@ -14,13 +14,10 @@ function* fetchExercises(action) {
   }
 }
 
-function* fetchByMusclGroup(action) {
-  //finish this
-}
-
 function* fetchMusclegroups(action) {
   try {
     const result = yield axios.get('/api/exercise/musclegroups');
+    yield put({ type: 'SET_GROUPS' });
   } catch (err) {
     console.log('Fetch musclegroups GET failed', err);
   }
