@@ -22,6 +22,8 @@ import ExerciseLibrary from '../ExerciseLibraryPage/ExerciseLibraryPage';
 
 import './App.css';
 import WorkoutLogPage from '../WorkoutLogPage/WorkoutLogPage';
+import AddExercisePage from '../AddExercisePage/AddExercisePage';
+import AddSetForm from '../AddExercisePage/AddSetForm/AddSetForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +33,6 @@ function App() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
-
 
   return (
     <Router>
@@ -66,11 +67,18 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows WorkoutLogPage else shows LoginPage
             exact
             path='/workout-log'
           >
             <WorkoutLogPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path='/add-exercise/:date/:workout_id'
+          >
+            <AddExercisePage />
           </ProtectedRoute>
 
           <Route

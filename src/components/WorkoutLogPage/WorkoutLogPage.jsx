@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import WorkoutLogDisplay from '../WorkoutLogDisplay/WorkoutLogDisplay';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import moment from 'moment';
 
 export default function WorkoutLogPage() {
@@ -8,6 +9,7 @@ export default function WorkoutLogPage() {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const workoutLog = useSelector((store) => store.workoutLog);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //Needs to be fixed//
   useEffect(() => {
@@ -41,7 +43,11 @@ export default function WorkoutLogPage() {
       ) : (
         <>
           <WorkoutLogDisplay />
-          <button onClick={() => history.push('/AddExerciseForm')}>
+          <button
+            onClick={() => {
+              history.push(`/add-exercise/${date}/${workoutLog.workout_id}`);
+            }}
+          >
             Add Exercise
           </button>
         </>

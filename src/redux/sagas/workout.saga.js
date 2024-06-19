@@ -43,9 +43,10 @@ function* addWorkout(action) {
 }
 
 function* addWorkoutDetails(action) {
+  
   try {
     yield axios.post('/api/workout/add-workout-details', action.payload);
-    yield put({ type: 'FETCH_WORKOUT' });
+    yield put({ type: 'FETCH_WORKOUT' , payload: {date: action.payload.date}});
   } catch (err) {
     console.log('Add workout details POST request failed:', err);
   }
