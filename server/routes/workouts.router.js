@@ -7,7 +7,8 @@ const {
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
   try {
-    const query = `SELECT JSON_BUILD_OBJECT(
+    const query = `SELECT COALESCE(
+    JSON_BUILD_OBJECT(
           'workout_id', wl.id,
           'date', wl.date,
           'exercises', JSON_AGG(
@@ -25,15 +26,17 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
                       WHERE si.detail_id = wd.id
                   )
               )
-          )
+            )
+          ),'{}'::json
       ) as workout_info
       FROM workout_log wl
       LEFT JOIN workout_details wd ON wd.workout_id = wl.id
       LEFT JOIN exercises e ON wd.exercise_id = e.id
+      LEFT JOIN set_info si ON wd.id = si.detail_id
       WHERE wl.user_id = $1 AND wl.date = $2
       GROUP BY wl.id, wl.date;`;
 
-    const date = /*req.query.date ||*/ new Date().toLocaleDateString();
+    const date = req.query.date; //?? new Date().toLocaleDateString();
 
     const result = await pool.query(query, [req.user.id, date]);
     res.send(result.rows[0]);
@@ -47,9 +50,8 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 router.post('/add-workout', rejectUnauthenticated, async (req, res) => {
   try {
     const query = `INSERT INTO workout_log ("user_id", date) VALUES ($1, $2);`;
-    const date = /*req.query.date ||*/ new Date().toLocaleDateString();
 
-    await pool.query(query, [req.user.id, date]);
+    await pool.query(query, [req.user.id, req.body.date]);
     res.sendStatus(201);
   } catch (err) {
     console.error('Error processing POST add-workout', err);

@@ -32,10 +32,6 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log('useEffect ran');
-    dispatch({ type: 'FETCH_WORKOUT' });
-  }, []);
 
   return (
     <Router>

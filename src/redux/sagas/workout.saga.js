@@ -2,10 +2,29 @@ import { takeLeading, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchWorkout(action) {
+  const { date } = action.payload;
+  let query;
+  console.log(date);
+
+  if (!date) {
+    query = '/api/workout';
+  } else {
+    query = `/api/workout?date=${date}`;
+  }
+  console.log(query);
+
   try {
-    const result = yield axios.get('/api/workout');
+    const result = yield axios.get(query);
+    let payload;
     console.log(result);
-    yield put({ type: 'SET_WORKOUT', payload: result.data });
+
+    if (!result.data.workout_info) {
+      payload = {};
+    } else {
+      payload = result.data.workout_info;
+    }
+
+    yield put({ type: 'SET_WORKOUT', payload: payload });
   } catch (err) {
     console.log('Workout GET request failed:', err);
   }
@@ -13,8 +32,11 @@ function* fetchWorkout(action) {
 
 function* addWorkout(action) {
   try {
-    yield axios.post('/api/workout/add-workout');
-    yield put({ type: 'FETCH_WORKOUT' });
+    yield axios.post(`/api/workout/add-workout`, { date: action.payload.date });
+    yield put({
+      type: 'FETCH_WORKOUT',
+      payload: action.payload,
+    });
   } catch (err) {
     console.log('Add-workout POST request failed:', err);
   }
@@ -44,7 +66,7 @@ function* editSet(action) {
 function* removeExercise(action) {
   try {
     yield axios.delete(`/api/workout/remove-exercise/${action.payload.id}`);
-    yield put({ type: 'FETCH_WORKOUT' });
+    // yield put({ type: 'FETCH_WORKOUT' });
   } catch (err) {
     console.log('Remove exercise DELETE request failed:', err);
   }

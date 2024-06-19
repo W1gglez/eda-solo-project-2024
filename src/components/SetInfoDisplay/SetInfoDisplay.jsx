@@ -1,4 +1,4 @@
-export default function SetInfoDisplay({ e }) {
+export default function SetInfoDisplay({ e, isEditable }) {
   return (
     <>
       {e.set_info.map((s) => (

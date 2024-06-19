@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
   const page = parseInt(req.query.page, 10) || 1;
   const pageSize = 25;
   const offset = (page - 1) * pageSize;
-  console.log('Search Query', typeof searchQuery);
 
   // Determine if the search is for a muscle group or exercise name
   const isMuscleGroupSearch = req.query.musclegroup || undefined;
