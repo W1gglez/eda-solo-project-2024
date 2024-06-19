@@ -66,7 +66,7 @@ function* editSet(action) {
 function* removeExercise(action) {
   try {
     yield axios.delete(`/api/workout/remove-exercise/${action.payload.id}`);
-    // yield put({ type: 'FETCH_WORKOUT' });
+    yield put({ type: 'FETCH_WORKOUT', payload: {date: action.payload.date} });
   } catch (err) {
     console.log('Remove exercise DELETE request failed:', err);
   }

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import SetInfoDisplay from '../SetInfoDisplay/SetInfoDisplay';
 import { useState } from 'react';
+import moment from 'moment';
 
 export default function WorkoutLogDisplay({ date }) {
   const [isEditable, setIsEditable] = useState(false);
@@ -13,11 +14,11 @@ export default function WorkoutLogDisplay({ date }) {
 
   return (
     <>
-      {!isAllValuesNull(workoutLog.exercises) ? (
+      {isAllValuesNull(workoutLog.exercises[0]) ? (
         <p>Add Exercise to start tracking</p>
       ) : (
-        workoutLog.exercises.map((e) => (
-          <div key={e.set_info.set_id}>
+        workoutLog.exercises.map((e, i) => (
+          <div key={i}>
             <p>
               {e.exercise_name}
               <button onClick={() => setIsEditable(true)}>
@@ -27,7 +28,10 @@ export default function WorkoutLogDisplay({ date }) {
                 onClick={() =>
                   dispatch({
                     type: 'REMOVE_EXERCISE',
-                    payload: { id: e.detail_id },
+                    payload: {
+                      id: e.detail_id,
+                      date: moment(date).format('YYYY-MM-DD'),
+                    },
                   })
                 }
               >

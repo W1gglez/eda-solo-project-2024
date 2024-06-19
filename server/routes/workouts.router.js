@@ -7,7 +7,7 @@ const {
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
   try {
-    const query = `SELECT COALESCE(
+    const query = `SELECT 
     JSON_BUILD_OBJECT(
           'workout_id', wl.id,
           'date', wl.date,
@@ -27,12 +27,11 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
                   )
               )
             )
-          ),'{}'::json
+          
       ) as workout_info
       FROM workout_log wl
       LEFT JOIN workout_details wd ON wd.workout_id = wl.id
       LEFT JOIN exercises e ON wd.exercise_id = e.id
-      LEFT JOIN set_info si ON wd.id = si.detail_id
       WHERE wl.user_id = $1 AND wl.date = $2
       GROUP BY wl.id, wl.date;`;
 
