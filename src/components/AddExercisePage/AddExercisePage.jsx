@@ -2,17 +2,17 @@ import {
   useParams,
   useHistory,
 } from 'react-router-dom/cjs/react-router-dom.min';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import AddExerciseDisplay from './AddExerciseDisplay/AddExerciseDisplay';
 import AddSetForm from './AddSetForm/AddSetForm';
-import moment from 'moment';
 
 export default function AddExercisePage() {
   const history = useHistory();
   const params = useParams();
   const dispatch = useDispatch();
   const [displayForm, setDisplayForm] = useState(false);
+  const date = useSelector((store) => store.date);
   const [exerciseDetails, setExerciseDetails] = useState({
     workout_id: params.workout_id,
     exercise_id: 4, //exercise.id
@@ -25,7 +25,7 @@ export default function AddExercisePage() {
       type: 'ADD_EXERCISE',
       payload: {
         ...exerciseDetails,
-        date: moment(params.date).format('YYYY-MM-DD'),
+        date: date,
       },
     });
     history.goBack();

@@ -42,6 +42,7 @@ export default function WorkoutLogDisplay({ date }) {
             <ul>
               <SetInfoDisplay
                 isEditable={isEditable}
+                setIsEditable={setIsEditable}
                 e={e}
               />
             </ul>

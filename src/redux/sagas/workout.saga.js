@@ -3,18 +3,9 @@ import axios from 'axios';
 
 function* fetchWorkout(action) {
   const { date } = action.payload;
-  let query;
-  console.log(date);
-
-  if (!date) {
-    query = '/api/workout';
-  } else {
-    query = `/api/workout?date=${date}`;
-  }
-  console.log(query);
 
   try {
-    const result = yield axios.get(query);
+    const result = yield axios.get(`/api/workout?date=${date}`);
     let payload;
     console.log(result);
 
@@ -43,10 +34,12 @@ function* addWorkout(action) {
 }
 
 function* addWorkoutDetails(action) {
-  
   try {
     yield axios.post('/api/workout/add-workout-details', action.payload);
-    yield put({ type: 'FETCH_WORKOUT' , payload: {date: action.payload.date}});
+    yield put({
+      type: 'FETCH_WORKOUT',
+      payload: { date: action.payload.date },
+    });
   } catch (err) {
     console.log('Add workout details POST request failed:', err);
   }
@@ -55,10 +48,13 @@ function* addWorkoutDetails(action) {
 function* editSet(action) {
   try {
     yield axios.put(
-      `/api/workout/update-set/${action.payload.id}`,
+      `/api/workout/update-set/${action.payload.set_id}`,
       action.payload
     );
-    yield put({ type: 'FETCH_WORKOUT' });
+    yield put({
+      type: 'FETCH_WORKOUT',
+      payload: { date: action.payload.date },
+    });
   } catch (err) {
     console.log('Edit set UPDATE request failed:', err);
   }

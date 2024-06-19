@@ -21,7 +21,8 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
                           'set_number', si.set_number,
                           'reps', si.reps,
                           'weight', si.weight
-                      ))
+                        ) ORDER BY si.id
+                      )
                       FROM set_info si
                       WHERE si.detail_id = wd.id
                   )

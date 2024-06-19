@@ -6,12 +6,11 @@ import moment from 'moment';
 
 export default function WorkoutLogPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const workoutLog = useSelector((store) => store.workoutLog);
+  const date = useSelector((store) => store.date);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  //Needs to be fixed//
   useEffect(() => {
     setIsLoading(true);
     dispatch({
@@ -27,7 +26,12 @@ export default function WorkoutLogPage() {
       <input
         type='date'
         value={date}
-        onChange={(e) => setDate(moment(e.target.value).format('YYYY-MM-DD'))}
+        onChange={(e) =>
+          dispatch({
+            type: 'SET_DATE',
+            payload: moment(e.target.value).format('YYYY-MM-DD'),
+          })
+        }
       />
 
       {isLoading ? (
@@ -45,7 +49,7 @@ export default function WorkoutLogPage() {
           <WorkoutLogDisplay />
           <button
             onClick={() => {
-              history.push(`/add-exercise/${date}/${workoutLog.workout_id}`);
+              history.push(`/add-exercise/${workoutLog.workout_id}`);
             }}
           >
             Add Exercise
