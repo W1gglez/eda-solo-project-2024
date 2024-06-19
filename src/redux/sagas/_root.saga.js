@@ -4,7 +4,7 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import calorieLogSaga from './calorie_log.saga';
 import exerciseSaga from './exercises.saga';
-import workoutSaga from './workout.reducer';
+import workoutSaga from './workout.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.

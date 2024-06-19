@@ -1,10 +1,10 @@
-const workout_log = (state = {}, action) => {
+const workoutLog = (state = {}, action) => {
   switch (action.type) {
     case 'SET_WORKOUT':
-      return action.payload;
+      return action.payload.workout_info;
     default:
       return state;
   }
 };
 
-export default workout_log;
+export default workoutLog;

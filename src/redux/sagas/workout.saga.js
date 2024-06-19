@@ -1,8 +1,10 @@
-import { takeLeading } from 'redux-saga/effects';
+import { takeLeading, put } from 'redux-saga/effects';
+import axios from 'axios';
 
 function* fetchWorkout(action) {
   try {
     const result = yield axios.get('/api/workout');
+    console.log(result);
     yield put({ type: 'SET_WORKOUT', payload: result.data });
   } catch (err) {
     console.log('Workout GET request failed:', err);
@@ -51,7 +53,7 @@ function* removeExercise(action) {
 function* workoutSaga() {
   yield takeLeading('FETCH_WORKOUT', fetchWorkout);
   yield takeLeading('ADD_WORKOUT', addWorkout);
-  yield takeLeading('ADD_WORKOUT_DETAILS', addWorkoutDetails);
+  yield takeLeading('ADD_EXERCISE', addWorkoutDetails);
   yield takeLeading('EDIT_SET', editSet);
   yield takeLeading('REMOVE_EXERCISE', removeExercise);
 }

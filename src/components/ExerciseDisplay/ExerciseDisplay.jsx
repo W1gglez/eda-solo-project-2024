@@ -20,10 +20,7 @@ export default function ExerciseDisplay({ search, setSearch }) {
         <>
           <button
             onClick={() => {
-              search.page =
-                search.page < exercises.totalPages
-                  ? search.page - 1
-                  : search.page;
+              search.page = search.page > 0 ? search.page - 1 : search.page;
               dispatch({ type: 'FETCH_EXERCISES', payload: search });
             }}
           >
