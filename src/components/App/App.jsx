@@ -15,13 +15,15 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import ExerciseLibrary from '../ExerciseLibrary/ExerciseLibrary';
+import ExerciseLibrary from '../ExerciseLibraryPage/ExerciseLibraryPage';
 
 import './App.css';
+import WorkoutLogPage from '../WorkoutLogPage/WorkoutLogPage';
+import AddExercisePage from '../AddExercisePage/AddExercisePage';
+import AddSetForm from '../AddExercisePage/AddSetForm/AddSetForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +48,6 @@ function App() {
 
           {/* Visiting localhost:5173/about will show the about page. */}
           <Route
-            // shows AboutPage at all times (logged in or not)
             exact
             path='/home'
           >
@@ -66,11 +67,18 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows WorkoutLogPage else shows LoginPage
             exact
-            path='/info'
+            path='/workout-log'
           >
-            <InfoPage />
+            <WorkoutLogPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path='/add-exercise/:workout_id'
+          >
+            <AddExercisePage />
           </ProtectedRoute>
 
           <Route
@@ -80,7 +88,7 @@ function App() {
             {user.id ? (
               // If the user is already logged in,
               // redirect to the /user page
-              <Redirect to='/user' />
+              <Redirect to='/home' />
             ) : (
               // Otherwise, show the login page
               <LoginPage />
@@ -94,7 +102,7 @@ function App() {
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page
-              <Redirect to='/user' />
+              <Redirect to='/home' />
             ) : (
               // Otherwise, show the registration page
               <RegisterPage />

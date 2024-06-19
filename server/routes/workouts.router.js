@@ -7,25 +7,39 @@ const {
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
   try {
-    const query = `
-    SELECT wl.id as workout_id, wl.date, e."name" as exercise_name, wd.id as details_id, 
-     ARRAY_AGG(JSON_BUILD_OBJECT(
-        'set_id', si.id,
-        'set_number', si.set_number,
-        'reps', si.reps,
-        'weight', si.weight
-    )) as set_info
-    FROM workout_log wl
-    JOIN workout_details wd ON wd.workout_id = wl.id 
-    JOIN exercises e ON wd.exercise_id = e.id
-    JOIN set_info si ON wd.id = si.detail_id
-    WHERE user_id=$1 AND date=$2 
-    GROUP BY wl.id, wl.date, wd.id,  e."name";`;
+    const query = `SELECT 
+    JSON_BUILD_OBJECT(
+          'workout_id', wl.id,
+          'date', wl.date,
+          'exercises', JSON_AGG(
+              JSON_BUILD_OBJECT(
+                  'exercise_name', e."name",
+                  'detail_id', wd.id,
+                  'set_info', (
+                      SELECT ARRAY_AGG(JSON_BUILD_OBJECT(
+                          'set_id', si.id,
+                          'set_number', si.set_number,
+                          'reps', si.reps,
+                          'weight', si.weight
+                        ) ORDER BY si.id
+                      )
+                      FROM set_info si
+                      WHERE si.detail_id = wd.id
+                  )
+              )
+            )
+          
+      ) as workout_info
+      FROM workout_log wl
+      LEFT JOIN workout_details wd ON wd.workout_id = wl.id
+      LEFT JOIN exercises e ON wd.exercise_id = e.id
+      WHERE wl.user_id = $1 AND wl.date = $2
+      GROUP BY wl.id, wl.date;`;
 
-    const date = req.query.date || new Date().toLocaleDateString();
+    const date = req.query.date; //?? new Date().toLocaleDateString();
 
     const result = await pool.query(query, [req.user.id, date]);
-    res.send(result.rows).status(302);
+    res.send(result.rows[0]);
   } catch (err) {
     console.error('Error processing /GET workout', err);
     res.sendStatus(500);
@@ -36,9 +50,8 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 router.post('/add-workout', rejectUnauthenticated, async (req, res) => {
   try {
     const query = `INSERT INTO workout_log ("user_id", date) VALUES ($1, $2);`;
-    const date = /*req.query.date ||*/ new Date().toLocaleDateString();
 
-    await pool.query(query, [req.user.id, date]);
+    await pool.query(query, [req.user.id, req.body.date]);
     res.sendStatus(201);
   } catch (err) {
     console.error('Error processing POST add-workout', err);
