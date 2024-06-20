@@ -1,17 +1,16 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function AddSetForm({
-  setExerciseDetails,
-  exerciseDetails,
-  setDisplayForm,
-}) {
+export default function AddSetForm({ setDisplayForm }) {
+  const exerciseDetails = useSelector((store) => store.AddExerciseDetails);
   const [set, setSet] = useState({ reps: 0, weight: 0 });
+  const dispatch = useDispatch();
 
   const handleAddSet = (e) => {
     e.preventDefault();
-    setExerciseDetails({
-      ...exerciseDetails,
-      set_info: [
+    dispatch({
+      type: 'SET_SET_INFO',
+      payload: [
         ...exerciseDetails.set_info,
         {
           ...set,

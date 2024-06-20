@@ -3,7 +3,7 @@ import {
   useHistory,
 } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AddExerciseDisplay from './AddExerciseDisplay/AddExerciseDisplay';
 import AddSetForm from './AddSetForm/AddSetForm';
 
@@ -12,16 +12,24 @@ export default function AddExercisePage() {
   const params = useParams();
   const dispatch = useDispatch();
   const [displayForm, setDisplayForm] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const date = useSelector((store) => store.date);
-  const [exerciseDetails, setExerciseDetails] = useState({
-    workout_id: params.workout_id,
-    exercise_id: 4, //exercise.id
-    exercise_name: '',
-    set_info: [],
-  });
+  const exerciseDetails = useSelector((store) => store.AddExerciseDetails);
+  //   const [exerciseDetails, setExerciseDetails] = useState({
+  //     workout_id: params.workout_id,
+  //     exercise_id: 0, //exercise.id
+  //     exercise_name: '',
+  //     set_info: [],
+  //   });
+
+  useEffect(() => {
+    console.log('Processing useEffect');
+    dispatch({ type: 'SET_WORKOUT_ID', payload: params.workout_id });
+    setLoading(false);
+  }, []);
 
   const handleLogExercise = () => {
-    console.log('in handleLogExercise');
     dispatch({
       type: 'ADD_EXERCISE',
       payload: {
@@ -29,6 +37,7 @@ export default function AddExercisePage() {
         date: date,
       },
     });
+    dispatch({ type: 'CLEAR_DETAILS' });
     history.goBack();
   };
   return (
@@ -36,22 +45,25 @@ export default function AddExercisePage() {
       <button
         onClick={() => {
           history.goBack();
+          dispatch({ type: 'CLEAR_DETAILS' });
         }}
       >
         Insert Back Arrow
       </button>
-      {/* <h3>{exercise.name}</h3> */}
-      <AddExerciseDisplay exerciseDetails={exerciseDetails} />
-      {displayForm ? (
-        <AddSetForm
-          setExerciseDetails={setExerciseDetails}
-          exerciseDetails={exerciseDetails}
-          setDisplayForm={setDisplayForm}
-        />
+      <h3>{exerciseDetails.exercise_name}</h3>
+      {loading ? (
+        <></>
       ) : (
         <>
-          <button onClick={() => setDisplayForm(true)}>Add Set</button>
-          <button onClick={() => handleLogExercise()}>Log Exercise</button>
+          <AddExerciseDisplay />
+          {displayForm ? (
+            <AddSetForm setDisplayForm={setDisplayForm} />
+          ) : (
+            <>
+              <button onClick={() => setDisplayForm(true)}>Add Set</button>
+              <button onClick={() => handleLogExercise()}>Log Exercise</button>
+            </>
+          )}
         </>
       )}
     </>
