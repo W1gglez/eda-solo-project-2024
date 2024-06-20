@@ -16,6 +16,7 @@ export default function AddExercisePage() {
   const [exerciseDetails, setExerciseDetails] = useState({
     workout_id: params.workout_id,
     exercise_id: 4, //exercise.id
+    exercise_name: '',
     set_info: [],
   });
 
