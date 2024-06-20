@@ -7,7 +7,6 @@ function* fetchWorkout(action) {
   try {
     const result = yield axios.get(`/api/workout?date=${date}`);
     let payload;
-    console.log(result);
 
     if (!result.data.workout_info) {
       payload = {};
