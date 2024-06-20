@@ -43,7 +43,7 @@ function Nav() {
 
             <Link
               className='navLink'
-              to='/calorie_tracker'
+              to='/calorie-tracker'
             >
               Calorie Tracker
             </Link>

@@ -7,7 +7,6 @@ const {
 
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
-  // GET route code here
   try {
     const query = `SELECT cl.id as log_id, cl.date, cl.user_id, ARRAY_AGG(JSON_BUILD_OBJECT(
 'entry_id',cle.entry_id,
@@ -20,7 +19,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 FROM calorie_log cl JOIN cl_entry cle ON cl.id = cle.log_id 
 WHERE user_id=$1 AND date=$2
 GROUP BY cl.id, cl.date, cl.user_id;`;
-    const date = req.query.date || new Date().toLocaleDateString();
+    const date = req.query.date;
 
     const result = await pool.query(query, [req.user.id, date]);
     res.send(result.rows).status(200);
@@ -34,7 +33,7 @@ router.post('/add-log', rejectUnauthenticated, async (req, res) => {
   // POST route code here
   try {
     const query = 'INSERT INTO calorie_log ("user_id", date) VALUES ($1, $2);';
-    const date = /*req.query.date ||*/ new Date().toLocaleDateString();
+    const date = req.query.date;
 
     await pool.query(query, [req.user.id, date]);
     res.sendStatus(201);

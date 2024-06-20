@@ -23,7 +23,7 @@ import ExerciseLibrary from '../ExerciseLibraryPage/ExerciseLibraryPage';
 import './App.css';
 import WorkoutLogPage from '../WorkoutLogPage/WorkoutLogPage';
 import AddExercisePage from '../AddExercisePage/AddExercisePage';
-import AddSetForm from '../AddExercisePage/AddSetForm/AddSetForm';
+import CalorieTrackerPage from '../CalorieTrackerPage/CalorieTrackerPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +46,6 @@ function App() {
             to='/home'
           />
 
-          {/* Visiting localhost:5173/about will show the about page. */}
           <Route
             exact
             path='/home'
@@ -80,7 +79,12 @@ function App() {
           >
             <AddExercisePage />
           </ProtectedRoute>
-
+          <ProtectedRoute
+            exact
+            path='/calorie-tracker'
+          >
+            <CalorieTrackerPage />
+          </ProtectedRoute>
           <Route
             exact
             path='/login'
@@ -101,7 +105,7 @@ function App() {
           >
             {user.id ? (
               // If the user is already logged in,
-              // redirect them to the /user page
+              // redirect them to the /home page
               <Redirect to='/home' />
             ) : (
               // Otherwise, show the registration page

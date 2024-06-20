@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import WorkoutLogDisplay from '../WorkoutLogDisplay/WorkoutLogDisplay';
+import CalorieTrackerDisplay from './CalorieTrackerDisplay/CalorieTrackerDisplay';
 
-export default function WorkoutLogPage() {
+export default function CalorieTrackerPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const workoutLog = useSelector((store) => store.workoutLog);
+  const calorieTracker = useSelector((store) => store.calorieTracker);
   const date = useSelector((store) => store.date);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -13,7 +13,7 @@ export default function WorkoutLogPage() {
   useEffect(() => {
     setIsLoading(true);
     dispatch({
-      type: 'FETCH_WORKOUT',
+      type: 'FETCH_TRACKER',
       payload: { date: date },
     });
     setIsLoading(false);
@@ -21,7 +21,7 @@ export default function WorkoutLogPage() {
 
   return (
     <>
-      <h1>Workout Log</h1>
+      <h1>Calorie Tracker</h1>
       <input
         type='date'
         value={date}
@@ -35,23 +35,21 @@ export default function WorkoutLogPage() {
 
       {isLoading ? (
         <></>
-      ) : Object.keys(workoutLog).length === 0 ? (
+      ) : Object.keys(calorieTracker).length === 0 ? (
         <button
-          onClick={() =>
-            dispatch({ type: 'ADD_WORKOUT', payload: { date: date } })
-          }
+          onClick={() => dispatch({ type: 'ADD_LOG', payload: { date: date } })}
         >
-          Add Workout
+          Add Log
         </button>
       ) : (
         <>
-          <WorkoutLogDisplay />
+          <CalorieTrackerDisplay />
           <button
             onClick={() => {
-              history.push(`/add-exercise/${workoutLog.workout_id}`);
+              history.push(`/add-log/${calorieTracker.log_id}`);
             }}
           >
-            Add Exercise
+            Add Entry
           </button>
         </>
       )}

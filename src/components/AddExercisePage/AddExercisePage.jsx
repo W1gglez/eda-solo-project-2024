@@ -26,18 +26,18 @@ export default function AddExercisePage() {
   }, []);
 
   const handleLogExercise = () => {
-   exerciseDetails.set_info.lenfth > 0
-     ? (dispatch({
-         type: 'ADD_EXERCISE',
-         payload: {
-           ...exerciseDetails,
-           date: date,
-         },
-       }),
-       dispatch({ type: 'CLEAR_DETAILS' }),
-       history.goBack())
-     : /*Possibly change to modal/popup*/
-       alert('You must add a set before logging.');
+    exerciseDetails.set_info.length > 0
+      ? (dispatch({
+          type: 'ADD_EXERCISE',
+          payload: {
+            ...exerciseDetails,
+            date: date,
+          },
+        }),
+        dispatch({ type: 'CLEAR_DETAILS' }),
+        history.goBack())
+      : /*Possibly change to modal/popup*/
+        alert('You must add a set before logging.');
   };
 
   const handleSubmit = (e) => {
@@ -84,7 +84,7 @@ export default function AddExercisePage() {
               placeholder='Search'
             />
           </form>
-          {displayResults ? <ExerciseDisplay search={searchQuery} /> : <></>}
+          {displayResults && <ExerciseDisplay search={searchQuery} />}
         </>
       )}
     </>

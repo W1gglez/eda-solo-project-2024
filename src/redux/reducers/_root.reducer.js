@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import calorieLog from './calorie_log.reducer';
 import exercises from './exercise.reducer';
 import musclegroups from './musclegroup.reducer';
 import workoutLog from './workout.reducer';
 import date from './date.reducer';
 import AddExerciseDetails from './AddExerciseDetails.reducer';
+import calorieTracker from './calorie_tracker.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,7 +17,7 @@ import AddExerciseDetails from './AddExerciseDetails.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  calorieLog,
+  calorieTracker,
   exercises,
   musclegroups,
   workoutLog,
