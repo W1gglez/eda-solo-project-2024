@@ -4,7 +4,7 @@ import ExerciseDisplay from '../ExerciseDisplay/ExerciseDisplay';
 import ExerciseSearchByMuscleGroup from '../ExerciseSearchByMuscleGroup/ExerciseSearchByMuscleGroup';
 
 export default function ExerciseSearch() {
-  const [searchQuery, setSearch] = useState({ search: '' });
+  const [searchQuery, setSearch] = useState({ search: '', page: 1 });
   const [display, setDisplay] = useState(false);
   const dispatch = useDispatch();
 
@@ -21,7 +21,9 @@ export default function ExerciseSearch() {
         <input
           type='text'
           value={searchQuery.search}
-          onChange={setSearch({ ...searchQuery, search: e.target.value })}
+          onChange={(e) =>
+            setSearch({ ...searchQuery, search: e.target.value })
+          }
           placeholder='Search'
         />
       </form>

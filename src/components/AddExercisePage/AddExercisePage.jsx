@@ -26,15 +26,18 @@ export default function AddExercisePage() {
   }, []);
 
   const handleLogExercise = () => {
-    dispatch({
-      type: 'ADD_EXERCISE',
-      payload: {
-        ...exerciseDetails,
-        date: date,
-      },
-    });
-    dispatch({ type: 'CLEAR_DETAILS' });
-    history.goBack();
+   exerciseDetails.set_info.lenfth > 0
+     ? (dispatch({
+         type: 'ADD_EXERCISE',
+         payload: {
+           ...exerciseDetails,
+           date: date,
+         },
+       }),
+       dispatch({ type: 'CLEAR_DETAILS' }),
+       history.goBack())
+     : /*Possibly change to modal/popup*/
+       alert('You must add a set before logging.');
   };
 
   const handleSubmit = (e) => {

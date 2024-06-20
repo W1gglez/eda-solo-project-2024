@@ -36,7 +36,7 @@ function App() {
 
   return (
     <Router basename='/fit-track'>
-      <div>
+      <div className='content'>
         <Nav />
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
@@ -128,8 +128,8 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
       </div>
+      <Footer />
     </Router>
   );
 }
