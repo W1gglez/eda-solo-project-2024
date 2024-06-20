@@ -3,7 +3,8 @@ const exerciseDetailsReducer = (state = { set_info: [] }, action) => {
     case 'SET_WORKOUT_ID':
       return { ...state, workout_id: action.payload };
     case 'SET_EXERCISE_ID':
-      return { ...state, exercise_id: action.payload };
+        const {exercise_id, exercise_name} = action.payload;
+      return { ...state, exercise_id, exercise_name };
     case 'SET_SET_INFO':
       return { ...state, set_info: action.payload };
     case 'CLEAR_DETAILS':

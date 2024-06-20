@@ -13,7 +13,6 @@ function* fetchExercises(action) {
 
   try {
     const result = yield axios.get(query);
-    console.log('search result', result);
     yield put({
       type: 'SET_EXERCISES',
       payload: result.data,

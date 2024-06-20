@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import AddExerciseDisplay from './AddExerciseDisplay/AddExerciseDisplay';
 import AddSetForm from './AddSetForm/AddSetForm';
+import ExerciseDisplay from '../ExerciseDisplay/ExerciseDisplay';
 
 export default function AddExercisePage() {
   const history = useHistory();
@@ -13,19 +14,14 @@ export default function AddExercisePage() {
   const dispatch = useDispatch();
   const [displayForm, setDisplayForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearch] = useState({ search: '', page: 1 });
+  const [displayResults, setDisplayResults] = useState(false);
 
   const date = useSelector((store) => store.date);
   const exerciseDetails = useSelector((store) => store.AddExerciseDetails);
-  //   const [exerciseDetails, setExerciseDetails] = useState({
-  //     workout_id: params.workout_id,
-  //     exercise_id: 0, //exercise.id
-  //     exercise_name: '',
-  //     set_info: [],
-  //   });
 
   useEffect(() => {
-    console.log('Processing useEffect');
-    dispatch({ type: 'SET_WORKOUT_ID', payload: params.workout_id });
+    dispatch({ type: 'SET_WORKOUT_ID', payload: Number(params.workout_id) });
     setLoading(false);
   }, []);
 
@@ -40,6 +36,14 @@ export default function AddExercisePage() {
     dispatch({ type: 'CLEAR_DETAILS' });
     history.goBack();
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch({ type: 'FETCH_EXERCISES', payload: searchQuery });
+    setDisplayResults(true);
+    setSearch({ ...searchQuery, search: '' });
+  };
+
   return (
     <>
       <button
@@ -50,10 +54,10 @@ export default function AddExercisePage() {
       >
         Insert Back Arrow
       </button>
-      <h3>{exerciseDetails.exercise_name}</h3>
+      <h4>{exerciseDetails.exercise_name}</h4>
       {loading ? (
         <></>
-      ) : (
+      ) : exerciseDetails.exercise_id ? (
         <>
           <AddExerciseDisplay />
           {displayForm ? (
@@ -64,6 +68,20 @@ export default function AddExercisePage() {
               <button onClick={() => handleLogExercise()}>Log Exercise</button>
             </>
           )}
+        </>
+      ) : (
+        <>
+          <form onSubmit={handleSubmit}>
+            <input
+              type='text'
+              value={searchQuery.search}
+              onChange={(e) =>
+                setSearch({ ...searchQuery, search: e.target.value })
+              }
+              placeholder='Search'
+            />
+          </form>
+          {displayResults ? <ExerciseDisplay search={searchQuery} /> : <></>}
         </>
       )}
     </>

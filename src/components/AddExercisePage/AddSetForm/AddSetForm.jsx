@@ -25,7 +25,7 @@ export default function AddSetForm({ setDisplayForm }) {
     <>
       <form onSubmit={handleAddSet}>
         <fieldset>
-          <legend>{exerciseDetails.name}</legend>
+          <legend>Add Set</legend>
           <label htmlFor='reps'>Reps:</label>
           <input
             id='reps'
