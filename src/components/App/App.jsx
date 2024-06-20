@@ -35,7 +35,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Router>
+    <Router basename='/fit-track'>
       <div>
         <Nav />
         <Switch>
