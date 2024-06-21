@@ -8,7 +8,7 @@ export default function CalorieTrackerDisplay() {
         {calorieTracker.log_entrys.map((f) => {
           return (
             <tr key={f.entry_id}>
-              <td>{f.name}</td>
+              <td rowSpan={2}>{f.name}</td>
               <td>
                 <ul>
                   <li>Calories: {f.calories}</li>
