@@ -13,7 +13,7 @@ export default function ExerciseLibrary() {
           <button onClick={() => history.push('/workout-log')}>
             Workout Log
           </button>
-          <button onClick={() => history.push('/calorie-tracker')}>
+          <button onClick={() => history.push('/nutrition-diary')}>
             Calorie Tracker
           </button>
         </>

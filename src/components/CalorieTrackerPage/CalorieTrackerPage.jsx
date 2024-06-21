@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import CalorieTrackerDisplay from './CalorieTrackerDisplay/CalorieTrackerDisplay';
+import moment from 'moment';
 
 export default function CalorieTrackerPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,11 +18,11 @@ export default function CalorieTrackerPage() {
       payload: { date: date },
     });
     setIsLoading(false);
-  }, [dispatch, date]);
+  }, [date]);
 
   return (
     <>
-      <h1>Calorie Tracker</h1>
+      <h1>Nutrition Diary</h1>
       <input
         type='date'
         value={date}
@@ -35,18 +36,21 @@ export default function CalorieTrackerPage() {
 
       {isLoading ? (
         <></>
-      ) : Object.keys(calorieTracker).length === 0 ? (
-        <button
-          onClick={() => dispatch({ type: 'ADD_LOG', payload: { date: date } })}
-        >
-          Add Log
-        </button>
       ) : (
-        <>
-          <CalorieTrackerDisplay />
+        /*Object.keys(calorieTracker).length === 0 ? (*/
+        //   <button
+        //     onClick={() => dispatch({ type: 'ADD_LOG', payload: { date: date } })}
+        //   >
+        //     Add Log
+        //   </button>
+        /* ) : */ <>
+          {calorieTracker.log_id && <CalorieTrackerDisplay />}
           <button
             onClick={() => {
-              history.push(`/add-log/${calorieTracker.log_id}`);
+              calorieTracker.log_id
+                ? history.push(`/add-entry/${calorieTracker.log_id}`)
+                : (dispatch({ type: 'ADD_LOG', payload: { date: date } }),
+                  history.push(`/add-entry/${calorieTracker.log_id}`));
             }}
           >
             Add Entry

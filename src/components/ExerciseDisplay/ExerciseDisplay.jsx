@@ -38,7 +38,7 @@ export default function ExerciseDisplay({ search }) {
           ))}
         </tbody>
       </table>
-      {exercises.totalPages === 1 ? (
+      {exercises.totalPages <= 1 ? (
         <></>
       ) : (
         <>

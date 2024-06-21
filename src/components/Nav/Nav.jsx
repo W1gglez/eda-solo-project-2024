@@ -43,21 +43,14 @@ function Nav() {
 
             <Link
               className='navLink'
-              to='/calorie-tracker'
+              to='/nutrition-diary'
             >
-              Calorie Tracker
+              Nutrition Diary
             </Link>
 
             <LogOutButton className='navLink' />
           </>
         )}
-
-        <Link
-          className='navLink'
-          to='/about'
-        >
-          About
-        </Link>
       </div>
     </div>
   );
