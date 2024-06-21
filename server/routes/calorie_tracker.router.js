@@ -8,17 +8,35 @@ const {
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
   try {
-    const query = `SELECT cl.id as log_id, cl.date, cl.user_id, ARRAY_AGG(JSON_BUILD_OBJECT(
-'entry_id',cle.entry_id,
-'name',cle.name,
-'calories',cle.calories,
-'protein',cle.protein,
-'carbs',cle.carbs,
-'fats',cle.fats
-)) as log_entrys 
-FROM calorie_log cl JOIN cl_entry cle ON cl.id = cle.log_id 
-WHERE user_id=$1 AND date=$2
-GROUP BY cl.id, cl.date, cl.user_id;`;
+    const query = `SELECT 
+    cl.id as log_id, 
+    cl.date, 
+    cl.user_id, 
+    ARRAY_AGG(JSON_BUILD_OBJECT(
+        'entry_id', cle.entry_id,
+        'name', cle.name,
+        'calories', cle.calories,
+        'protein', cle.protein,
+        'carbs', cle.carbs,
+        'fats', cle.fats
+    )) as log_entrys,
+    SUM(cle.calories) as total_calories,
+    SUM(cle.protein) as total_protein,
+    SUM(cle.carbs) as total_carbs,
+    SUM(cle.fats) as total_fats
+FROM 
+    calorie_log cl 
+JOIN 
+    cl_entry cle 
+ON 
+    cl.id = cle.log_id 
+WHERE 
+    user_id = $1 
+    AND date = $2
+GROUP BY 
+    cl.id, 
+    cl.date, 
+    cl.user_id;`;
     const date = req.query.date;
 
     const result = await pool.query(query, [req.user.id, date]);
