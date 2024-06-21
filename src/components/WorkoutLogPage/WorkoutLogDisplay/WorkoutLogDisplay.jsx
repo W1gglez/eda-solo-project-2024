@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import SetInfoDisplay from '../SetInfoDisplay/SetInfoDisplay';
 import { useState } from 'react';
-import moment from 'moment';
 
-export default function WorkoutLogDisplay({ date }) {
+export default function WorkoutLogDisplay() {
   const [isEditable, setIsEditable] = useState(false);
   const workoutLog = useSelector((store) => store.workoutLog);
+  const date = useSelector((store) => store.date);
   const dispatch = useDispatch();
 
   const isAllValuesNull = (obj) => {
@@ -30,7 +30,7 @@ export default function WorkoutLogDisplay({ date }) {
                     type: 'REMOVE_EXERCISE',
                     payload: {
                       id: e.detail_id,
-                      date: moment(date).format('YYYY-MM-DD'),
+                      date: date,
                     },
                   })
                 }

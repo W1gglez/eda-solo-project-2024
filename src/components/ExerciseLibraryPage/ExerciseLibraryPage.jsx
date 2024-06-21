@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useSelector } from 'react-redux';
-import ExerciseSearch from '../ExerciseSearch/ExerciseSearch';
+import ExerciseSearch from './ExerciseSearch/ExerciseSearch';
 
 export default function ExerciseLibrary() {
   const user = useSelector((store) => store.user);
@@ -13,7 +13,7 @@ export default function ExerciseLibrary() {
           <button onClick={() => history.push('/workout-log')}>
             Workout Log
           </button>
-          <button onClick={() => history.push('/calorie-tracker')}>
+          <button onClick={() => history.push('/nutrition-diary')}>
             Calorie Tracker
           </button>
         </>

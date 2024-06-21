@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import AddExerciseDisplay from './AddExerciseDisplay/AddExerciseDisplay';
 import AddSetForm from './AddSetForm/AddSetForm';
-import ExerciseDisplay from '../ExerciseDisplay/ExerciseDisplay';
+import ExerciseDisplay from '../ExerciseLibraryPage/ExerciseDisplay/ExerciseDisplay';
 
 export default function AddExercisePage() {
   const history = useHistory();

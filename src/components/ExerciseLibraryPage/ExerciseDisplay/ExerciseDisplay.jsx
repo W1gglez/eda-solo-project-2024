@@ -1,10 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import {
+  useHistory,
+  useLocation,
+} from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function ExerciseDisplay({ search }) {
   const location = useLocation();
   const exercises = useSelector((store) => store.exercises);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   console.log(location);
 
@@ -14,7 +18,13 @@ export default function ExerciseDisplay({ search }) {
         <tbody>
           {exercises.data?.map((e) => (
             <tr key={e.id}>
-              <td>{e.name}</td>
+              <td
+                onClick={() => {
+                  history.push(`/exercise-details/${e.id}`);
+                }}
+              >
+                {e.name}
+              </td>
               <td>
                 {location.pathname === '/home' ? (
                   <></>
@@ -38,7 +48,7 @@ export default function ExerciseDisplay({ search }) {
           ))}
         </tbody>
       </table>
-      {exercises.totalPages === 1 ? (
+      {exercises.totalPages <= 1 ? (
         <></>
       ) : (
         <>

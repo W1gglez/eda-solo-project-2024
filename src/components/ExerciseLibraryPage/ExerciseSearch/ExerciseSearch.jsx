@@ -12,14 +12,14 @@ export default function ExerciseSearch() {
     e.preventDefault();
     dispatch({ type: 'FETCH_EXERCISES', payload: searchQuery });
     setDisplay(true);
-    setSearch({ ...searchQuery, search: '' });
+    // setSearch({ ...searchQuery, search: '' });
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <input
-          type='text'
+          type='search'
           value={searchQuery.search}
           onChange={(e) =>
             setSearch({ ...searchQuery, search: e.target.value })
