@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import WorkoutLogDisplay from '../WorkoutLogDisplay/WorkoutLogDisplay';
-import moment from 'moment';
+import WorkoutLogDisplay from './WorkoutLogDisplay/WorkoutLogDisplay';
 
 export default function WorkoutLogPage() {
   const [isLoading, setIsLoading] = useState(true);

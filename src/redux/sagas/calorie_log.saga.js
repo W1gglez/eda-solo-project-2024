@@ -48,7 +48,7 @@ function* updateEntry(action) {
 
 function* removeEntry(action) {
   try {
-    yield axios.delete(`/api/calorie_tracker/remove-entry/${action.payload}`);
+    yield axios.delete(`/api/calorie_tracker/remove-entry/${action.payload.id}`);
     yield put({
       type: 'FETCH_TRACKER',
       payload: { date: action.payload.date },
