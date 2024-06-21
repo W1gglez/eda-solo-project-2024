@@ -12,28 +12,15 @@ function* fetchCalorieLog(action) {
     } else {
       payload = result.data[0];
     }
-    console.log('GET results:', result);
     yield put({ type: 'SET_TRACKER', payload: payload });
   } catch (err) {
     console.log('Calorie Log GET request failed', err);
   }
 }
 
-function* createNewLog(action) {
+function* addEntry(action) {
   try {
-    yield axios.post('/api/calorie_tracker/add-log');
-    yield put({
-      type: 'FETCH_TRACKER',
-      payload: { date: action.payload.date },
-    });
-  } catch (err) {
-    console.log('Create new log POST request failed', err);
-  }
-}
-
-function* addLogEntry(action) {
-  try {
-    yield axios.post('/api/calorie_tracker/add-log-entry', action.payload);
+    yield axios.post('/api/calorie_tracker/add-entry', action.payload);
     yield put({
       type: 'FETCH_TRACKER',
       payload: { date: action.payload.date },
@@ -73,8 +60,7 @@ function* removeEntry(action) {
 
 function* calorieLogSaga() {
   yield takeLeading('FETCH_TRACKER', fetchCalorieLog);
-  yield takeLeading('CREATE_LOG', createNewLog);
-  yield takeLeading('ADD_ENTRY', addLogEntry);
+  yield takeLeading('ADD_ENTRY', addEntry);
   yield takeLeading('UPDATE_ENTRY', updateEntry);
   yield takeLeading('DELETE_ENTRY', removeEntry);
 }

@@ -26,7 +26,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     SUM(cle.fats) as total_fats
 FROM 
     calorie_log cl 
-JOIN 
+LEFT JOIN 
     cl_entry cle 
 ON 
     cl.id = cle.log_id 
@@ -47,17 +47,59 @@ GROUP BY
   }
 });
 
-router.post('/add-log', rejectUnauthenticated, async (req, res) => {
-  // POST route code here
-  try {
-    const query = 'INSERT INTO calorie_log ("user_id", date) VALUES ($1, $2);';
-    const date = req.query.date;
+router.post('/add-entry', rejectUnauthenticated, async (req, res) => {
+  if (req.body.log_id !== 'undefined') {
+    try {
+      const { log_id, name, calories } = req.body;
+      const protein = req.body.protein || null;
+      const carbs = req.body.carbs || null;
+      const fats = req.body.fats || null;
 
-    await pool.query(query, [req.user.id, date]);
-    res.sendStatus(201);
-  } catch (err) {
-    console.error('Error processing POST add-log', err);
-    res.sendStatus(500);
+      const query =
+        'INSERT INTO cl_entry (log_id, "name" ,calories, protein, carbs, fats) VALUES ($1, $2, $3, $4, $5, $6);';
+
+      await pool.query(query, [log_id, name, calories, protein, carbs, fats]);
+      res.sendStatus(201);
+    } catch (err) {
+      console.error('Error processing POST add-log-entry ', err);
+      res.sendStatus(500);
+    }
+  } else {
+    let query;
+    try {
+      query =
+        'INSERT INTO calorie_log ("user_id", date) VALUES ($1, $2)returning id;';
+      const date = req.body.date;
+
+      const result = await pool.query(query, [req.user.id, date]);
+
+      const log_id = result.rows[0].id;
+      const { name, calories } = req.body;
+      const protein = req.body.protein || null;
+      const carbs = req.body.carbs || null;
+      const fats = req.body.fats || null;
+
+      try {
+        query =
+          'INSERT INTO cl_entry (log_id, "name" ,calories, protein, carbs, fats) VALUES ($1, $2, $3, $4, $5, $6);';
+
+        await pool.query(query, [
+          Number(log_id),
+          name,
+          calories,
+          protein,
+          carbs,
+          fats,
+        ]);
+        res.sendStatus(201);
+      } catch (err) {
+        console.error('Error processing POST add-entry-item ', err);
+        res.sendStatus(500);
+      }
+    } catch (err) {
+      console.error('Error processing POST add-entry', err);
+      res.sendStatus(500);
+    }
   }
 });
 

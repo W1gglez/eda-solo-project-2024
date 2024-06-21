@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import CalorieTrackerDisplay from './CalorieTrackerDisplay/CalorieTrackerDisplay';
-import moment from 'moment';
+import NutritionDiaryForm from './NutrionDiaryForm/NutrionDiaryForm';
 
 export default function CalorieTrackerPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [displayForm, setDisplayForm] = useState(false);
   const calorieTracker = useSelector((store) => store.calorieTracker);
   const date = useSelector((store) => store.date);
   const dispatch = useDispatch();
@@ -26,35 +27,26 @@ export default function CalorieTrackerPage() {
       <input
         type='date'
         value={date}
-        onChange={(e) =>
+        onChange={(e) => {
           dispatch({
             type: 'SET_DATE',
             payload: e.target.value,
-          })
-        }
+          }),
+            setDisplayForm(false);
+        }}
       />
 
       {isLoading ? (
         <></>
       ) : (
-        /*Object.keys(calorieTracker).length === 0 ? (*/
-        //   <button
-        //     onClick={() => dispatch({ type: 'ADD_LOG', payload: { date: date } })}
-        //   >
-        //     Add Log
-        //   </button>
-        /* ) : */ <>
+        <>
           {calorieTracker.log_id && <CalorieTrackerDisplay />}
-          <button
-            onClick={() => {
-              calorieTracker.log_id
-                ? history.push(`/add-entry/${calorieTracker.log_id}`)
-                : (dispatch({ type: 'ADD_LOG', payload: { date: date } }),
-                  history.push(`/add-entry/${calorieTracker.log_id}`));
-            }}
-          >
-            Add Entry
-          </button>
+          {displayForm && (
+            <NutritionDiaryForm setDisplayForm={setDisplayForm} />
+          )}
+          {displayForm || (
+            <button onClick={() => setDisplayForm(true)}>Add Entry</button>
+          )}
         </>
       )}
     </>
