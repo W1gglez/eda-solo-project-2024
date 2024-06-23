@@ -24,8 +24,18 @@ function* fetchUser() {
   }
 }
 
+function* addUserInfo(action) {
+  try {
+    yield axios.post('/api/user/add-user-info', action.payload);
+    yield put({ type: 'FETCH_USER' });
+  } catch (err) {
+    console.log('Add user info POST request failed:', err);
+  }
+}
+
 function* userSaga() {
   yield takeLeading('FETCH_USER', fetchUser);
+  yield takeLeading('ADD_USER_INFO', addUserInfo);
 }
 
 export default userSaga;

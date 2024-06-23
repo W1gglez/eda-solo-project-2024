@@ -2,11 +2,12 @@ import { useSelector } from 'react-redux';
 
 export default function CalorieTrackerProgressBars() {
   const calorieTracker = useSelector((store) => store.calorieTracker);
+  const user = useSelector((store) => store.user);
   return (
     <>
       <br />{' '}
       <label htmlFor='calories'>
-        {calorieTracker.total_calories}/{'<Calorie Target>'}
+        Calories: {calorieTracker.total_calories}/{user.bmr}
       </label>
       <progress
         id='calories'
@@ -15,7 +16,7 @@ export default function CalorieTrackerProgressBars() {
       ></progress>
       <br />
       <label htmlFor='protein'>
-        {calorieTracker.total_protein ?? '??'}/{'<Protein Target>'}
+        Protein: {calorieTracker.total_protein ?? '??'}/{'<Protein Target>'}
       </label>
       <progress
         id='protein'
@@ -24,7 +25,7 @@ export default function CalorieTrackerProgressBars() {
       ></progress>
       <br />
       <label htmlFor='carbs'>
-        {calorieTracker.total_carbs ?? '??'}/{'<Carb Target>'}
+        Carbs: {calorieTracker.total_carbs ?? '??'}/{'<Carb Target>'}
       </label>
       <progress
         id='carbs'
@@ -33,7 +34,7 @@ export default function CalorieTrackerProgressBars() {
       ></progress>
       <br />
       <label htmlFor='fats'>
-        {calorieTracker.total_fats ?? '??'}/{'<Fat Target>'}
+        Fats: {calorieTracker.total_fats ?? '??'}/{'<Fat Target>'}
       </label>
       <progress
         id='fats'

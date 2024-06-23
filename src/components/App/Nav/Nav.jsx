@@ -14,7 +14,7 @@ function Nav() {
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
-        {!user.id && (
+        {(!user.id || user.registered === false) && (
           // If there's no user, show login/registration links
           <Link
             className='navLink'
@@ -25,7 +25,7 @@ function Nav() {
         )}
 
         {/* If a user is logged in, show these links */}
-        {user.id && (
+        {user.id && user.registered === true && (
           <>
             <Link
               className='navLink'

@@ -23,6 +23,7 @@ import WorkoutLogPage from '../WorkoutLogPage/WorkoutLogPage';
 import AddExercisePage from '../AddExercisePage/AddExercisePage';
 import CalorieTrackerPage from '../CalorieTrackerPage/CalorieTrackerPage';
 import ExerciseDetailsPage from '../ExerciseDetailsPage/ExerciseDetailsPage';
+import UserInfoForm from '../RegisterPage/UserInfoForm/UserInfoForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -90,14 +91,24 @@ function App() {
           >
             <CalorieTrackerPage />
           </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/register-user-info'
+          >
+            <UserInfoForm />
+          </ProtectedRoute>
           <Route
             exact
             path='/login'
           >
             {user.id ? (
-              // If the user is already logged in,
-              // redirect to the /user page
-              <Redirect to='/home' />
+              user.registered === false ? (
+                <Redirect to='/register-user-info' />
+              ) : (
+                // If the user is already logged in, and registration has been completed
+                // redirect them to the /home page
+                <Redirect to='/home' />
+              )
             ) : (
               // Otherwise, show the login page
               <LoginPage />
@@ -109,9 +120,13 @@ function App() {
             path='/registration'
           >
             {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /home page
-              <Redirect to='/home' />
+              user.registered === false ? (
+                <Redirect to='/register-user-info' />
+              ) : (
+                // If the user is already logged in, and registration has been completed
+                // redirect them to the /home page
+                <Redirect to='/home' />
+              )
             ) : (
               // Otherwise, show the registration page
               <RegisterPage />

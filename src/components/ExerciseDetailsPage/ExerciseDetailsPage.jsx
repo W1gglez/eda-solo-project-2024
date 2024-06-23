@@ -26,7 +26,7 @@ export default function ExerciseDetailsPage() {
         />
         <h2>{exerciseDetails.name}</h2>
         <ul>
-          {exerciseDetails.steps.map((s) => (
+          {exerciseDetails.steps?.map((s) => (
             <ExerciseStepItem
               s={s}
               key={s.step_number}
