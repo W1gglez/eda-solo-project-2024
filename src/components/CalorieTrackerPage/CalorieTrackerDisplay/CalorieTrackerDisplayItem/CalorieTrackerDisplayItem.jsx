@@ -1,20 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-export default function CalorieTrackerDisplayItem({
-  f,
-  editable,
-  setEditable,
-}) {
+export default function CalorieTrackerDisplayItem({ f }) {
   const dispatch = useDispatch();
   const date = useSelector((store) => store.date);
   const [newCalories, setNewCalories] = useState(f.calories);
   const [newProtein, setNewProtein] = useState(f.protein);
   const [newCarbs, setNewCarbs] = useState(f.carbs);
   const [newFats, setNewFats] = useState(f.fats);
+  const [editable, setEditable] = useState(false);
 
+  const handleDelete = (id) => {
+    dispatch({ type: 'DELETE_ENTRY', payload: { date: date, id } });
+  };
   return (
-    <>
+    <tr>
+      <td>{f.name}</td>
       <td>
         <table>
           <tbody>
@@ -93,7 +94,7 @@ export default function CalorieTrackerDisplayItem({
           </tbody>
         </table>
       </td>
-      {editable && (
+      {editable ? (
         <td>
           <button
             onClick={() => {
@@ -114,7 +115,19 @@ export default function CalorieTrackerDisplayItem({
             Update Item
           </button>
         </td>
+      ) : (
+        <>
+          <td>
+            <button onClick={() => setEditable(true)}>Insert Edit Icon</button>
+          </td>
+
+          <td>
+            <button onClick={() => handleDelete(f.entry_id)}>
+              Insert Trash Icon
+            </button>
+          </td>
+        </>
       )}
-    </>
+    </tr>
   );
 }
