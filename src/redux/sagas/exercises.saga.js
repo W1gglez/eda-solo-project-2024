@@ -31,7 +31,19 @@ function* fetchMusclegroups(action) {
   }
 }
 
+function* fetchExerciseDetails(action) {
+  try {
+    const result = yield axios.get(
+      `/api/exercise/details/${action.payload.id}`
+    );
+    yield put({ type: 'SET_EXERCISE_DETAILS', payload: result.data[0] });
+  } catch (err) {
+    console.log('Fetch exercise details GET failed', err);
+  }
+}
+
 export default function* exerciseSaga() {
   yield takeLeading('FETCH_EXERCISES', fetchExercises);
   yield takeLeading('FETCH_MUSCLEGROUPS', fetchMusclegroups);
+  yield takeLeading('FETCH_EXERCISE_DETAILS', fetchExerciseDetails);
 }

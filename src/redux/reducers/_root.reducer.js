@@ -5,8 +5,9 @@ import exercises from './exercise.reducer';
 import musclegroups from './musclegroup.reducer';
 import workoutLog from './workout.reducer';
 import date from './date.reducer';
-import AddExerciseDetails from './AddExerciseDetails.reducer';
 import calorieTracker from './calorie_tracker.reducer';
+import setInfo from './setInfo.reducer';
+import exerciseDetails from './exercise_details.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   musclegroups,
   workoutLog,
   date,
-  AddExerciseDetails,
+  setInfo,
+  exerciseDetails,
 });
 
 export default rootReducer;

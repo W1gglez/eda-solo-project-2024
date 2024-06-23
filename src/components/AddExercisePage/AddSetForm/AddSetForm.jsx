@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function AddSetForm({ setDisplayForm }) {
-  const exerciseDetails = useSelector((store) => store.AddExerciseDetails);
+  const setInfo = useSelector((store) => store.setInfo);
   const [set, setSet] = useState({ reps: 0, weight: 0 });
   const dispatch = useDispatch();
 
@@ -11,10 +11,10 @@ export default function AddSetForm({ setDisplayForm }) {
     dispatch({
       type: 'SET_SET_INFO',
       payload: [
-        ...exerciseDetails.set_info,
+        ...setInfo.set_info,
         {
           ...set,
-          set_number: exerciseDetails.set_info.length + 1,
+          set_number: setInfo.set_info.length + 1,
         },
       ],
     });

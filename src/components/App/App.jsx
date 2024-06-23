@@ -22,6 +22,7 @@ import './App.css';
 import WorkoutLogPage from '../WorkoutLogPage/WorkoutLogPage';
 import AddExercisePage from '../AddExercisePage/AddExercisePage';
 import CalorieTrackerPage from '../CalorieTrackerPage/CalorieTrackerPage';
+import ExerciseDetailsPage from '../ExerciseDetailsPage/ExerciseDetailsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,12 @@ function App() {
             path='/home'
           >
             <ExerciseLibrary />
+          </Route>
+          <Route
+            exact
+            path='/exercise-details/:id'
+          >
+            <ExerciseDetailsPage />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
