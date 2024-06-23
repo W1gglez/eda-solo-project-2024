@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import WorkoutLogDisplay from './WorkoutLogDisplay/WorkoutLogDisplay';
+import moment from 'moment';
+import DateSelector from '../DateSelector/DateSelector';
 
 export default function WorkoutLogPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,16 +24,7 @@ export default function WorkoutLogPage() {
   return (
     <>
       <h1>Workout Log</h1>
-      <input
-        type='date'
-        value={date}
-        onChange={(e) => {
-          dispatch({
-            type: 'SET_DATE',
-            payload: e.target.value,
-          });
-        }}
-      />
+      <DateSelector />
 
       {isLoading ? (
         <></>

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import CalorieTrackerDisplay from './CalorieTrackerDisplay/CalorieTrackerDisplay';
 import NutritionDiaryForm from './NutrionDiaryForm/NutrionDiaryForm';
+import moment from 'moment';
+import DateSelector from '../DateSelector/DateSelector';
 
 export default function CalorieTrackerPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,17 +26,7 @@ export default function CalorieTrackerPage() {
   return (
     <>
       <h1>Nutrition Diary</h1>
-      <input
-        type='date'
-        value={date}
-        onChange={(e) => {
-          dispatch({
-            type: 'SET_DATE',
-            payload: e.target.value,
-          }),
-            setDisplayForm(false);
-        }}
-      />
+      <DateSelector />
 
       {isLoading ? (
         <></>
