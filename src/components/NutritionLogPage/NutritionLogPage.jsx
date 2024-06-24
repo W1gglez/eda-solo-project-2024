@@ -1,15 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import CalorieTrackerDisplay from './CalorieTrackerDisplay/CalorieTrackerDisplay';
+import NutritionLogDisplay from './NutritionLogDisplay/NutritionLogDisplay';
 import NutritionDiaryForm from './NutrionDiaryForm/NutrionDiaryForm';
-import moment from 'moment';
 import DateSelector from '../DateSelector/DateSelector';
 
-export default function CalorieTrackerPage() {
+export default function NutritionLogPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [displayForm, setDisplayForm] = useState(false);
-  const calorieTracker = useSelector((store) => store.calorieTracker);
+  const nutritionLog = useSelector((store) => store.nutritionLog);
   const date = useSelector((store) => store.date);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -25,14 +24,14 @@ export default function CalorieTrackerPage() {
 
   return (
     <>
-      <h1>Nutrition Diary</h1>
+      <h1>Nutrition Log</h1>
       <DateSelector />
 
       {isLoading ? (
         <></>
       ) : (
         <>
-          {calorieTracker.log_id && <CalorieTrackerDisplay />}
+          {nutritionLog.log_id && <NutritionLogDisplay />}
           {displayForm ? (
             <NutritionDiaryForm setDisplayForm={setDisplayForm} />
           ) : (

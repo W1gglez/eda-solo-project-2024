@@ -21,7 +21,7 @@ import ExerciseLibrary from '../ExerciseLibraryPage/ExerciseLibraryPage';
 import './App.css';
 import WorkoutLogPage from '../WorkoutLogPage/WorkoutLogPage';
 import AddExercisePage from '../AddExercisePage/AddExercisePage';
-import CalorieTrackerPage from '../CalorieTrackerPage/CalorieTrackerPage';
+import NutritionLogPage from '../NutritionLogPage/NutritionLogPage';
 import ExerciseDetailsPage from '../ExerciseDetailsPage/ExerciseDetailsPage';
 import UserInfoForm from '../RegisterPage/UserInfoForm/UserInfoForm';
 
@@ -88,9 +88,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute
             exact
-            path='/nutrition-diary'
+            path='/nutrition-log'
           >
-            <CalorieTrackerPage />
+            <NutritionLogPage />
           </ProtectedRoute>
           <ProtectedRoute
             exact

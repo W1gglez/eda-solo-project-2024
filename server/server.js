@@ -11,7 +11,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const workoutRouter = require('./routes/workouts.router');
 const exerciseRouter = require('./routes/exercise.router');
-const calorieTrackerRouter = require('./routes/calorie_tracker.router');
+const nutritionLogRouter = require('./routes/calorie_tracker.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,7 +28,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/workout', workoutRouter);
 app.use('/api/exercise', exerciseRouter);
-app.use('/api/calorie_tracker', calorieTrackerRouter);
+app.use('/api/calorie_tracker', nutritionLogRouter);
 
 
 // Serve static files
