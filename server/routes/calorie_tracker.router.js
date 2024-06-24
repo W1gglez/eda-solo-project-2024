@@ -48,7 +48,7 @@ GROUP BY
 });
 
 router.post('/add-entry', rejectUnauthenticated, async (req, res) => {
-  if (req.body.log_id !== 'undefined') {
+  if (req.body.log_id) {
     try {
       const { log_id, name, calories } = req.body;
       const protein = req.body.protein || null;

@@ -19,19 +19,21 @@ export default function AddExercisePage() {
 
   const date = useSelector((store) => store.date);
   const setInfo = useSelector((store) => store.setInfo);
+  const workoutLog = useSelector((store) => store.workoutLog);
 
   useEffect(() => {
-    dispatch({ type: 'SET_WORKOUT_ID', payload: Number(params.workout_id) });
+    // dispatch({ type: 'SET_WORKOUT_ID', payload: Number(params.workout_id) });
     setLoading(false);
   }, []);
 
   const handleLogExercise = () => {
     setInfo.set_info.length > 0
       ? (dispatch({
-          type: 'ADD_EXERCISE',
+          type: 'ADD_WORKOUT',
           payload: {
             ...setInfo,
             date: date,
+            workout_id: workoutLog.workout_id,
           },
         }),
         dispatch({ type: 'CLEAR_DETAILS' }),

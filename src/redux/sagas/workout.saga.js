@@ -22,10 +22,11 @@ function* fetchWorkout(action) {
 
 function* addWorkout(action) {
   try {
-    yield axios.post(`/api/workout/add-workout`, { date: action.payload.date });
+    console.log(action.payload)
+    yield axios.post(`/api/workout/add-workout`, action.payload);
     yield put({
       type: 'FETCH_WORKOUT',
-      payload: action.payload,
+      payload: {date: action.payload.date},
     });
   } catch (err) {
     console.log('Add-workout POST request failed:', err);

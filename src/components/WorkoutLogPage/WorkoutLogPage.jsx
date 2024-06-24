@@ -28,24 +28,25 @@ export default function WorkoutLogPage() {
 
       {isLoading ? (
         <></>
-      ) : Object.keys(workoutLog).length === 0 ? (
-        <button
-          onClick={() => {
-            dispatch({
-              type: 'ADD_WORKOUT',
-              payload: { date: date },
-            }); /* Fix this*/
-            history.push(`/add-exercise/${workoutLog.workout_id}`);
-          }}
-        >
-          Add Exercise
-        </button>
       ) : (
+        // ) : Object.keys(workoutLog).length === 0 ? (
+        //   <button
+        //     onClick={() => {
+        //       dispatch({
+        //         type: 'ADD_WORKOUT',
+        //         payload: { date: date },
+        //       }); /* Fix this*/
+        //       history.push(`/add-exercise/${workoutLog.workout_id}`);
+        //     }}
+        //   >
+        //     Add Exercise
+        //   </button>
         <>
-          <WorkoutLogDisplay />
+          {workoutLog.exercises && <WorkoutLogDisplay />}
           <button
             onClick={() => {
-              history.push(`/add-exercise/${workoutLog.workout_id}`);
+              // history.push(`/add-exercise/${workoutLog.workout_id}`);
+              history.push(`/add-exercise`);
             }}
           >
             Add Exercise
