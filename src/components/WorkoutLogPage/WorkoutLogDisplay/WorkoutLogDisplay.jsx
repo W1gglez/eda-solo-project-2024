@@ -18,7 +18,7 @@ export default function WorkoutLogDisplay() {
         <div>
           <table>
             <tbody>
-              {workoutLog.exercises.map((e, i) => (
+              {workoutLog.exercises?.map((e, i) => (
                 <tr key={i}>
                   <td>{e.exercise_name}</td>
                   <td>
