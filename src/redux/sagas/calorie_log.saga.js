@@ -32,8 +32,9 @@ function* addEntry(action) {
 
 function* updateEntry(action) {
   try {
+    console.log(action.payload);
     yield axios.put(
-      `/api/calorie_tracker/update-entry/${action.payload.id}`,
+      `/api/calorie_tracker/edit-entry/${action.payload.entry_id}`,
 
       action.payload
     );
@@ -48,7 +49,9 @@ function* updateEntry(action) {
 
 function* removeEntry(action) {
   try {
-    yield axios.delete(`/api/calorie_tracker/remove-entry/${action.payload.id}`);
+    yield axios.delete(
+      `/api/calorie_tracker/remove-entry/${action.payload.id}`
+    );
     yield put({
       type: 'FETCH_TRACKER',
       payload: { date: action.payload.date },
@@ -61,7 +64,7 @@ function* removeEntry(action) {
 function* calorieLogSaga() {
   yield takeLeading('FETCH_TRACKER', fetchCalorieLog);
   yield takeLeading('ADD_ENTRY', addEntry);
-  yield takeLeading('UPDATE_ENTRY', updateEntry);
+  yield takeLeading('EDIT_ENTRY', updateEntry);
   yield takeLeading('DELETE_ENTRY', removeEntry);
 }
 

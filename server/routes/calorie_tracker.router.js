@@ -103,25 +103,8 @@ router.post('/add-entry', rejectUnauthenticated, async (req, res) => {
   }
 });
 
-router.post('/add-log-entry', rejectUnauthenticated, async (req, res) => {
-  const { log_id, name, calories } = req.body;
-  const protein = req.body.protein || null;
-  const carbs = req.body.carbs || null;
-  const fats = req.body.fats || null;
 
-  try {
-    const query =
-      'INSERT INTO cl_entry (log_id, "name" ,calories, protein, carbs, fats) VALUES ($1, $2, $3, $4, $5, $6);';
-
-    await pool.query(query, [log_id, name, calories, protein, carbs, fats]);
-    res.sendStatus(201);
-  } catch (err) {
-    console.error('Error processing POST add-log-entry ', err);
-    res.sendStatus(500);
-  }
-});
-
-router.put('/update-entry/:id', rejectUnauthenticated, async (req, res) => {
+router.put('/edit-entry/:id', rejectUnauthenticated, async (req, res) => {
   const { name, calories } = req.body;
   const protein = req.body.protein || null;
   const carbs = req.body.carbs || null;
