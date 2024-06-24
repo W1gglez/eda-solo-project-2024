@@ -30,11 +30,15 @@ export default function WorkoutLogPage() {
         <></>
       ) : Object.keys(workoutLog).length === 0 ? (
         <button
-          onClick={() =>
-            dispatch({ type: 'ADD_WORKOUT', payload: { date: date } })
-          }
+          onClick={() => {
+            dispatch({
+              type: 'ADD_WORKOUT',
+              payload: { date: date },
+            }); /* Fix this*/
+            history.push(`/add-exercise/${workoutLog.workout_id}`);
+          }}
         >
-          Add Workout
+          Add Exercise
         </button>
       ) : (
         <>

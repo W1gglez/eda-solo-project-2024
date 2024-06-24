@@ -53,7 +53,6 @@ router.post('/add-user-info', async (req, res) => {
   const { user_id, height, weight, age, gender, bmr } = req.body;
 
   try {
-    await console.log(req.body);
     const query = `INSERT INTO user_info (user_id, height, weight, age, gender, bmr) VALUES ($1, $2, $3, $4, $5, $6);`;
     await pool.query(query, [user_id, height, weight, age, gender, bmr]);
     try {

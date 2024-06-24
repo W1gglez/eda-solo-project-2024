@@ -18,7 +18,7 @@ export default function AddExercisePage() {
   const [displayResults, setDisplayResults] = useState(false);
 
   const date = useSelector((store) => store.date);
-  const exerciseDetails = useSelector((store) => store.AddExerciseDetails);
+  const setInfo = useSelector((store) => store.setInfo);
 
   useEffect(() => {
     dispatch({ type: 'SET_WORKOUT_ID', payload: Number(params.workout_id) });
@@ -26,11 +26,11 @@ export default function AddExercisePage() {
   }, []);
 
   const handleLogExercise = () => {
-    exerciseDetails.set_info.length > 0
+    setInfo.set_info.length > 0
       ? (dispatch({
           type: 'ADD_EXERCISE',
           payload: {
-            ...exerciseDetails,
+            ...setInfo,
             date: date,
           },
         }),
@@ -57,10 +57,10 @@ export default function AddExercisePage() {
       >
         Insert Back Arrow
       </button>
-      <h4>{exerciseDetails.exercise_name}</h4>
+      <h4>{setInfo.exercise_name}</h4>
       {loading ? (
         <></>
-      ) : exerciseDetails.exercise_id ? (
+      ) : setInfo.exercise_id ? (
         <>
           <AddExerciseDisplay />
           {displayForm ? (
@@ -84,7 +84,12 @@ export default function AddExercisePage() {
               placeholder='Search'
             />
           </form>
-          {displayResults && <ExerciseDisplay search={searchQuery} />}
+          {displayResults && (
+            <ExerciseDisplay
+              search={searchQuery}
+              setDisplayForm={setDisplayForm}
+            />
+          )}
         </>
       )}
     </>

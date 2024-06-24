@@ -33,10 +33,9 @@ export default function CalorieTrackerPage() {
       ) : (
         <>
           {calorieTracker.log_id && <CalorieTrackerDisplay />}
-          {displayForm && (
+          {displayForm ? (
             <NutritionDiaryForm setDisplayForm={setDisplayForm} />
-          )}
-          {displayForm || (
+          ) : (
             <button onClick={() => setDisplayForm(true)}>Add Entry</button>
           )}
         </>
