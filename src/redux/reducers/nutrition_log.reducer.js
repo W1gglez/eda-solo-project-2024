@@ -1,4 +1,4 @@
-const calorieTracker = (state = {}, action) => {
+const nutritionLog = (state = {}, action) => {
   switch (action.type) {
     case 'SET_TRACKER':
       return action.payload;
@@ -7,4 +7,4 @@ const calorieTracker = (state = {}, action) => {
   }
 };
 
-export default calorieTracker;
+export default nutritionLog;

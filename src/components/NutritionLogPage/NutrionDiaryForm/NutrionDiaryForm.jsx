@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function NutritionDiaryForm({ setDisplayForm }) {
-  const calorieTracker = useSelector((store) => store.calorieTracker);
+  const nutritionLog = useSelector((store) => store.nutritionLog);
   const date = useSelector((store) => store.date);
   const [newEntry, setNewEntry] = useState({
-    log_id: calorieTracker.log_id,
+    log_id: nutritionLog.log_id,
     date: date,
   });
   const dispatch = useDispatch();

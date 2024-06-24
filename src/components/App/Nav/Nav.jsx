@@ -43,9 +43,9 @@ function Nav() {
 
             <Link
               className='navLink'
-              to='/nutrition-diary'
+              to='/nutrition-log'
             >
-              Nutrition Diary
+              Nutrition Log
             </Link>
 
             <LogOutButton className='navLink' />

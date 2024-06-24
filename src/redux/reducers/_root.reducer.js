@@ -5,7 +5,7 @@ import exercises from './exercise.reducer';
 import musclegroups from './musclegroup.reducer';
 import workoutLog from './workout.reducer';
 import date from './date.reducer';
-import calorieTracker from './calorie_tracker.reducer';
+import nutritionLog from './nutrition_log.reducer';
 import setInfo from './setInfo.reducer';
 import exerciseDetails from './exercise_details.reducer';
 
@@ -18,7 +18,7 @@ import exerciseDetails from './exercise_details.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  calorieTracker,
+  nutritionLog,
   exercises,
   musclegroups,
   workoutLog,

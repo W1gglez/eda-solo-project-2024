@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-export default function CalorieTrackerDisplayItem({ f }) {
+export default function NutritionLogDisplayItem({ f }) {
   const dispatch = useDispatch();
   const date = useSelector((store) => store.date);
   const [newCalories, setNewCalories] = useState(f.calories);
