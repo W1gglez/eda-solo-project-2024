@@ -59,6 +59,12 @@ export default function NutritionDiaryForm({ setDisplayForm }) {
       />
       <br />
       <button>Submit</button>
+      <button
+        type='button'
+        onClick={() => setDisplayForm(false)}
+      >
+        Cancel
+      </button>
     </form>
   );
 }
