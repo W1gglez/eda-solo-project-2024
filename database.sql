@@ -38,7 +38,6 @@ CREATE TABLE IF NOT EXISTS "workout_log"(
 CREATE TABLE IF NOT EXISTS  "exercises"(
 	"id" serial primary key,
 	"name" varchar(100) not null unique,
---	"steps" varchar(2500) not null,
 	"image_url" varchar(1000),
 	"video_url" varchar(1000)
 );
@@ -75,7 +74,7 @@ CREATE TABLE IF NOT EXISTS "calorie_log"(
 CREATE TABLE IF NOT EXISTS "cl_entry"(
 	"entry_id" serial primary key,
 	"log_id" int references "calorie_log" ON DELETE CASCADE,
-	"food_name" varchar(100) not null,
+	"name" varchar(100) not null,
 	"calories" int not null,
 	"protein" int,
 	"carbs" int,
@@ -88,7 +87,7 @@ CREATE TABLE IF NOT EXISTS "exercise_muscles" (
     PRIMARY KEY ("exercise_id", "muscle_id")
 );
 
--- Seed Data:
+
 INSERT INTO musclegroups ("name")
 VALUES 
     ('Chest'),
