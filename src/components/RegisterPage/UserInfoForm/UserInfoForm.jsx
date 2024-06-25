@@ -1,6 +1,15 @@
+import Stack from '@mui/joy/Stack';
+import Button from '@mui/joy/Button';
+import FormControl from '@mui/joy/FormControl';
+import Input from '@mui/joy/Input';
+import Option from '@mui/joy/Option';
+import Select from '@mui/joy/Select';
+import FormLabel from '@mui/joy/FormLabel';
+import Container from '@mui/joy/Container';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Grid } from '@mui/joy';
 
 export default function UserInfoForm() {
   const user = useSelector((store) => store.user);
@@ -47,60 +56,205 @@ export default function UserInfoForm() {
   }; // end registerUser
 
   return (
-    <form
-      onSubmit={addUserInfo}
-      className='formPanel'
+    <Container
+      sx={{
+        maxWidth: '360',
+        display: 'flex',
+        justifyContent: 'center',
+        height: '70vh',
+        alignItems: 'center',
+      }}
     >
-      <label htmlFor='height'>Height: </label>
-      <input
-        id='height-feet'
-        type='number'
-        onChange={(e) => setHeight({ feet: Number(e.target.value) })}
-        required
-      />{' '}
-      ft
-      <input
-        id='height-inches'
-        type='number'
-        onChange={(e) =>
-          setHeight({ ...height, inches: Number(e.target.value) })
-        }
-        required
-      />{' '}
-      inches
-      <br />
-      <label htmlFor='weight'>Weight: </label>
-      <input
-        id='weight'
-        type='number'
-        onChange={(e) =>
-          setUserInfo({ ...userInfo, weight: Number(e.target.value) })
-        }
-        required
-      />{' '}
-      <br />
-      <label htmlFor='age'>Age: </label>
-      <input
-        id='age'
-        type='number'
-        onChange={(e) =>
-          setUserInfo({ ...userInfo, age: Number(e.target.value) })
-        }
-        required
-      />
-      <br />
-      <select
-        name='gender'
-        id='gender'
-        onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.value })}
-        required
+      <form
+        onSubmit={addUserInfo}
+        className='formPanel'
       >
-        <option value=''>Select your gender</option>
-        <option value='Male'>Male</option>
-        <option value='Female'>Female</option>
-      </select>{' '}
-      <br /> <br />
-      <button className='btn'>Submit</button>
-    </form>
+        <Stack spacing={3}>
+          <Grid
+            container
+            rowSpacing={2}
+            columnSpacing={1}
+          >
+            <Grid xs={6}>
+              <FormControl>
+                <FormLabel htmlFor='height'>Height: </FormLabel>
+                <Input
+                  autoFocus
+                  autoComplete='off'
+                  sx={{
+                    margin: '5px',
+                    mb: '10px',
+                    backgroundColor: '#d3d6db',
+                    border: 'none',
+                    boxShadow: 'none',
+                    borderRadius: '0',
+                    borderBottom: '1px solid #303841',
+                    '&:focus-within': {
+                      border: 'none',
+                    },
+                    '&:focus-within::before': {
+                      boxShadow:
+                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+
+                      borderRadius: '8px',
+                    },
+                  }}
+                  id='height-feet'
+                  type='number'
+                  onChange={(e) => setHeight({ feet: Number(e.target.value) })}
+                  required
+                  endDecorator='ft'
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid xs={6}>
+              <FormControl>
+                <Input
+                  autoComplete='off'
+                  sx={{
+                    margin: '5px',
+                    mb: '10px',
+                    backgroundColor: '#d3d6db',
+                    border: 'none',
+                    boxShadow: 'none',
+                    borderRadius: '0',
+                    borderBottom: '1px solid #303841',
+                    '&:focus-within': {
+                      border: 'none',
+                    },
+                    '&:focus-within::before': {
+                      boxShadow:
+                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+
+                      borderRadius: '8px',
+                    },
+                  }}
+                  id='height-inches'
+                  type='number'
+                  onChange={(e) =>
+                    setHeight({ ...height, inches: Number(e.target.value) })
+                  }
+                  required
+                  endDecorator='inches'
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid xs={6}>
+              <FormControl>
+                <FormLabel htmlFor='weight'>Weight: </FormLabel>
+                <Input
+                  autoComplete='off'
+                  sx={{
+                    margin: '5px',
+                    mb: '10px',
+                    backgroundColor: '#d3d6db',
+                    border: 'none',
+                    boxShadow: 'none',
+                    borderRadius: '0',
+                    borderBottom: '1px solid #303841',
+                    '&:focus-within': {
+                      border: 'none',
+                    },
+                    '&:focus-within::before': {
+                      boxShadow:
+                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+
+                      borderRadius: '8px',
+                    },
+                  }}
+                  id='weight'
+                  type='number'
+                  onChange={(e) =>
+                    setUserInfo({ ...userInfo, weight: Number(e.target.value) })
+                  }
+                  required
+                  endDecorator='lbs'
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid xs={6}>
+              <FormControl>
+                <FormLabel htmlFor='age'>Age: </FormLabel>
+                <Input
+                  autoComplete='off'
+                  sx={{
+                    margin: '5px',
+                    mb: '10px',
+                    backgroundColor: '#d3d6db',
+                    border: 'none',
+                    boxShadow: 'none',
+                    borderRadius: '0',
+                    borderBottom: '1px solid #303841',
+                    '&:focus-within': {
+                      border: 'none',
+                    },
+                    '&:focus-within::before': {
+                      boxShadow:
+                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+                      borderRadius: '8px',
+                    },
+                  }}
+                  id='age'
+                  type='number'
+                  onChange={(e) =>
+                    setUserInfo({ ...userInfo, age: Number(e.target.value) })
+                  }
+                  required
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid xs={12}>
+              <FormLabel htmlFor='gender'>Gender:</FormLabel>
+              <Select
+                variant='outlined'
+                sx={{
+                  backgroundColor: '#d3d6db',
+                  border: 'none',
+                  boxShadow: 'none',
+                  borderRadius: '0',
+                  borderBottom: '1px solid #303841',
+                  '&:focus-within': {
+                    border: 'none',
+                  },
+                  '&:focus-within::before': {
+                    boxShadow:
+                      ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+
+                    borderRadius: '8px',
+                  },
+                }}
+                name='gender'
+                id='gender'
+                defaultValue=''
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, gender: e.target.value })
+                }
+                required
+              >
+                <Option value=''>Select your gender</Option>
+                <Option value='Male'>Male</Option>
+                <Option value='Female'>Female</Option>
+              </Select>
+            </Grid>
+          </Grid>
+
+          <Button
+            xs={12}
+            type='submit'
+            sx={{
+              boxShadow: ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+              background: '#be3144',
+              ':hover': { backgroundColor: '#9e2837', opacity: '95%' },
+            }}
+          >
+            Submit
+          </Button>
+        </Stack>
+      </form>
+    </Container>
   );
 }
