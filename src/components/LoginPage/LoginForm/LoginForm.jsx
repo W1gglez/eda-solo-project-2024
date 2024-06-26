@@ -71,8 +71,10 @@ function LoginForm() {
               backgroundColor: '#d3d6db',
               border: 'none',
               boxShadow: 'none',
-              borderRadius: '0',
-              borderBottom: '1px solid #303841',
+              // borderRadius: '0',
+              // borderBottom: '1px solid #303841',
+              boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
               '&:focus-within': {
                 border: 'none',
               },
@@ -104,8 +106,9 @@ function LoginForm() {
               backgroundColor: '#d3d6db',
               border: 'none',
               boxShadow: 'none',
-              borderRadius: '0',
-              borderBottom: '1px solid #303841',
+              // borderRadius: '0',
+              // borderBottom: '1px solid #303841',
+              boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
               '&:focus-within': {
                 border: 'none',
               },

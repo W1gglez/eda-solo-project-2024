@@ -19,8 +19,8 @@ export default function UserInfoForm() {
   const heightInInches = height.feet * 12 + height.inches;
   const history = useHistory();
 
-  function calculateBmr() {
-    switch (userInfo.gender) {
+  function calculateBmr(gender) {
+    switch (gender) {
       case 'Male':
         return (
           66 +
@@ -43,13 +43,17 @@ export default function UserInfoForm() {
 
   const addUserInfo = (event) => {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const genderJson = Object.fromEntries(formData.entries());
+
     dispatch({
       type: 'ADD_USER_INFO',
       payload: {
         ...userInfo,
+        ...genderJson,
         user_id: user.id,
         height: heightInInches,
-        bmr: Math.round(calculateBmr()),
+        bmr: Math.round(calculateBmr(genderJson.gender)),
       },
     });
     history.push('/home');
@@ -68,10 +72,7 @@ export default function UserInfoForm() {
         container
         sx={{ width: '90vw', maxWidth: '400px', padding: '25px' }}
       >
-        <form
-          onSubmit={addUserInfo}
-          className='formPanel'
-        >
+        <form onSubmit={addUserInfo}>
           <Stack spacing={3}>
             <Grid
               container
@@ -79,7 +80,7 @@ export default function UserInfoForm() {
               columnSpacing={1}
             >
               <Grid xs={12}>
-                <FormLabel htmlFor='height'>Height: </FormLabel>
+                <FormLabel htmlFor='height'>Height </FormLabel>
               </Grid>
               <Grid xs={6}>
                 <FormControl>
@@ -148,7 +149,7 @@ export default function UserInfoForm() {
 
               <Grid xs={6}>
                 <FormControl>
-                  <FormLabel htmlFor='weight'>Weight: </FormLabel>
+                  <FormLabel htmlFor='weight'>Weight</FormLabel>
                   <Input
                     autoComplete='off'
                     sx={{
@@ -184,7 +185,7 @@ export default function UserInfoForm() {
 
               <Grid xs={6}>
                 <FormControl>
-                  <FormLabel htmlFor='age'>Age: </FormLabel>
+                  <FormLabel htmlFor='age'>Age </FormLabel>
                   <Input
                     autoComplete='off'
                     sx={{
@@ -215,7 +216,7 @@ export default function UserInfoForm() {
               </Grid>
 
               <Grid xs={12}>
-                <FormLabel htmlFor='gender'>Gender:</FormLabel>
+                <FormLabel htmlFor='gender'>Gender</FormLabel>
                 <Select
                   sx={{
                     backgroundColor: '#d3d6db',
@@ -223,6 +224,7 @@ export default function UserInfoForm() {
                     boxShadow: 'none',
                     borderRadius: '0',
                     borderBottom: '1px solid #303841',
+
                     '&:hover': {
                       background: 'inherit',
                       border: 'none',
@@ -241,13 +243,12 @@ export default function UserInfoForm() {
                   }}
                   name='gender'
                   id='gender'
-                  defaultValue=''
+                  placeholder='Select your gender'
                   onChange={(e) =>
                     setUserInfo({ ...userInfo, gender: e.target.value })
                   }
                   required
                 >
-                  <Option value=''>Select your gender</Option>
                   <Option value='Male'>Male</Option>
                   <Option value='Female'>Female</Option>
                 </Select>

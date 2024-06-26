@@ -24,7 +24,7 @@ export default function WorkoutLogDisplay() {
                   <td>
                     <table>
                       <tbody>
-                        {e.set_info.map((s) => (
+                        {e.set_info?.map((s) => (
                           <SetInfoDisplay
                             s={s}
                             key={s.id}

@@ -53,7 +53,7 @@ function RegisterForm() {
             htmlFor='username'
             sx={{ color: '#be3144' }}
           >
-            Username:
+            Username
           </FormLabel>
           <Input
             autoFocus
@@ -64,8 +64,10 @@ function RegisterForm() {
               backgroundColor: '#d3d6db',
               border: 'none',
               boxShadow: 'none',
-              borderRadius: '0',
-              borderBottom: '1px solid #303841',
+              // borderRadius: '0',
+              // borderBottom: '1px solid #303841',
+              boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
               '&:focus-within': {
                 border: 'none',
               },
@@ -87,7 +89,7 @@ function RegisterForm() {
             htmlFor='password'
             sx={{ color: '#be3144' }}
           >
-            Password:{' '}
+            Password
           </FormLabel>
 
           <Input
@@ -97,8 +99,10 @@ function RegisterForm() {
               backgroundColor: '#d3d6db',
               border: 'none',
               boxShadow: 'none',
-              borderRadius: '0',
-              borderBottom: '1px solid #303841',
+              // borderRadius: '0',
+              // borderBottom: '1px solid #303841',
+              boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
               '&:focus-within': {
                 border: 'none',
               },
