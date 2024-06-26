@@ -5,6 +5,7 @@ import RegisterForm from './RegisterForm/RegisterForm';
 import Button from '@mui/joy/Button';
 import Container from '@mui/joy/Container';
 import Grid from '@mui/joy/Grid';
+import Typography from '@mui/joy/Typography';
 
 function RegisterPage() {
   const history = useHistory();
@@ -62,7 +63,7 @@ function RegisterPage() {
                 history.push('/login');
               }}
             >
-              Sign In
+              <Typography level='body-lg'>Sign In</Typography>
             </Button>
           </Grid>
         </Grid>

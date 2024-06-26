@@ -58,203 +58,215 @@ export default function UserInfoForm() {
   return (
     <Container
       sx={{
-        maxWidth: '360',
         display: 'flex',
         justifyContent: 'center',
-        height: '70vh',
+        height: '75vh',
         alignItems: 'center',
       }}
     >
-      <form
-        onSubmit={addUserInfo}
-        className='formPanel'
+      <Grid
+        container
+        sx={{ width: '90vw', maxWidth: '400px', padding: '25px' }}
       >
-        <Stack spacing={3}>
-          <Grid
-            container
-            rowSpacing={2}
-            columnSpacing={1}
-          >
-            <Grid xs={6}>
-              <FormControl>
+        <form
+          onSubmit={addUserInfo}
+          className='formPanel'
+        >
+          <Stack spacing={3}>
+            <Grid
+              container
+              rowSpacing={2}
+              columnSpacing={1}
+            >
+              <Grid xs={12}>
                 <FormLabel htmlFor='height'>Height: </FormLabel>
-                <Input
-                  autoFocus
-                  autoComplete='off'
+              </Grid>
+              <Grid xs={6}>
+                <FormControl>
+                  <Input
+                    autoFocus
+                    autoComplete='off'
+                    sx={{
+                      margin: '5px',
+                      mb: '10px',
+                      backgroundColor: '#d3d6db',
+                      border: 'none',
+                      boxShadow: 'none',
+                      borderRadius: '0',
+                      borderBottom: '1px solid #303841',
+                      '&:focus-within': {
+                        border: 'none',
+                      },
+                      '&:focus-within::before': {
+                        boxShadow:
+                          ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                        borderRadius: '8px',
+                      },
+                    }}
+                    id='height-feet'
+                    type='number'
+                    onChange={(e) =>
+                      setHeight({ feet: Number(e.target.value) })
+                    }
+                    required
+                    endDecorator='ft'
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid xs={6}>
+                <FormControl>
+                  <Input
+                    autoComplete='off'
+                    sx={{
+                      margin: '5px',
+                      mb: '10px',
+                      backgroundColor: '#d3d6db',
+                      border: 'none',
+                      boxShadow: 'none',
+                      borderRadius: '0',
+                      borderBottom: '1px solid #303841',
+                      '&:focus-within': {
+                        border: 'none',
+                      },
+                      '&:focus-within::before': {
+                        boxShadow:
+                          ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                        borderRadius: '8px',
+                      },
+                    }}
+                    id='height-inches'
+                    type='number'
+                    onChange={(e) =>
+                      setHeight({ ...height, inches: Number(e.target.value) })
+                    }
+                    required
+                    endDecorator='inches'
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid xs={6}>
+                <FormControl>
+                  <FormLabel htmlFor='weight'>Weight: </FormLabel>
+                  <Input
+                    autoComplete='off'
+                    sx={{
+                      margin: '5px',
+                      mb: '10px',
+                      backgroundColor: '#d3d6db',
+                      border: 'none',
+                      boxShadow: 'none',
+                      borderRadius: '0',
+                      borderBottom: '1px solid #303841',
+                      '&:focus-within': {
+                        border: 'none',
+                      },
+                      '&:focus-within::before': {
+                        boxShadow:
+                          ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                        borderRadius: '8px',
+                      },
+                    }}
+                    id='weight'
+                    type='number'
+                    onChange={(e) =>
+                      setUserInfo({
+                        ...userInfo,
+                        weight: Number(e.target.value),
+                      })
+                    }
+                    required
+                    endDecorator='lbs'
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid xs={6}>
+                <FormControl>
+                  <FormLabel htmlFor='age'>Age: </FormLabel>
+                  <Input
+                    autoComplete='off'
+                    sx={{
+                      margin: '5px',
+                      mb: '10px',
+                      backgroundColor: '#d3d6db',
+                      border: 'none',
+                      boxShadow: 'none',
+                      borderRadius: '0',
+                      borderBottom: '1px solid #303841',
+                      '&:focus-within': {
+                        border: 'none',
+                      },
+                      '&:focus-within::before': {
+                        boxShadow:
+                          ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                        borderRadius: '8px',
+                      },
+                    }}
+                    id='age'
+                    type='number'
+                    onChange={(e) =>
+                      setUserInfo({ ...userInfo, age: Number(e.target.value) })
+                    }
+                    required
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid xs={12}>
+                <FormLabel htmlFor='gender'>Gender:</FormLabel>
+                <Select
                   sx={{
-                    margin: '5px',
-                    mb: '10px',
                     backgroundColor: '#d3d6db',
                     border: 'none',
                     boxShadow: 'none',
                     borderRadius: '0',
                     borderBottom: '1px solid #303841',
+                    '&:hover': {
+                      background: 'inherit',
+                      border: 'none',
+                      boxShadow:
+                        ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                      borderRadius: '8px',
+                    },
                     '&:focus-within': {
                       border: 'none',
                     },
                     '&:focus-within::before': {
                       boxShadow:
-                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
-
+                        ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
                       borderRadius: '8px',
                     },
                   }}
-                  id='height-feet'
-                  type='number'
-                  onChange={(e) => setHeight({ feet: Number(e.target.value) })}
-                  required
-                  endDecorator='ft'
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid xs={6}>
-              <FormControl>
-                <Input
-                  autoComplete='off'
-                  sx={{
-                    margin: '5px',
-                    mb: '10px',
-                    backgroundColor: '#d3d6db',
-                    border: 'none',
-                    boxShadow: 'none',
-                    borderRadius: '0',
-                    borderBottom: '1px solid #303841',
-                    '&:focus-within': {
-                      border: 'none',
-                    },
-                    '&:focus-within::before': {
-                      boxShadow:
-                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
-
-                      borderRadius: '8px',
-                    },
-                  }}
-                  id='height-inches'
-                  type='number'
+                  name='gender'
+                  id='gender'
+                  defaultValue=''
                   onChange={(e) =>
-                    setHeight({ ...height, inches: Number(e.target.value) })
+                    setUserInfo({ ...userInfo, gender: e.target.value })
                   }
                   required
-                  endDecorator='inches'
-                />
-              </FormControl>
+                >
+                  <Option value=''>Select your gender</Option>
+                  <Option value='Male'>Male</Option>
+                  <Option value='Female'>Female</Option>
+                </Select>
+              </Grid>
             </Grid>
 
-            <Grid xs={6}>
-              <FormControl>
-                <FormLabel htmlFor='weight'>Weight: </FormLabel>
-                <Input
-                  autoComplete='off'
-                  sx={{
-                    margin: '5px',
-                    mb: '10px',
-                    backgroundColor: '#d3d6db',
-                    border: 'none',
-                    boxShadow: 'none',
-                    borderRadius: '0',
-                    borderBottom: '1px solid #303841',
-                    '&:focus-within': {
-                      border: 'none',
-                    },
-                    '&:focus-within::before': {
-                      boxShadow:
-                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
-
-                      borderRadius: '8px',
-                    },
-                  }}
-                  id='weight'
-                  type='number'
-                  onChange={(e) =>
-                    setUserInfo({ ...userInfo, weight: Number(e.target.value) })
-                  }
-                  required
-                  endDecorator='lbs'
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid xs={6}>
-              <FormControl>
-                <FormLabel htmlFor='age'>Age: </FormLabel>
-                <Input
-                  autoComplete='off'
-                  sx={{
-                    margin: '5px',
-                    mb: '10px',
-                    backgroundColor: '#d3d6db',
-                    border: 'none',
-                    boxShadow: 'none',
-                    borderRadius: '0',
-                    borderBottom: '1px solid #303841',
-                    '&:focus-within': {
-                      border: 'none',
-                    },
-                    '&:focus-within::before': {
-                      boxShadow:
-                        ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
-                      borderRadius: '8px',
-                    },
-                  }}
-                  id='age'
-                  type='number'
-                  onChange={(e) =>
-                    setUserInfo({ ...userInfo, age: Number(e.target.value) })
-                  }
-                  required
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid xs={12}>
-              <FormLabel htmlFor='gender'>Gender:</FormLabel>
-              <Select
-                variant='outlined'
-                sx={{
-                  backgroundColor: '#d3d6db',
-                  border: 'none',
-                  boxShadow: 'none',
-                  borderRadius: '0',
-                  borderBottom: '1px solid #303841',
-                  '&:focus-within': {
-                    border: 'none',
-                  },
-                  '&:focus-within::before': {
-                    boxShadow:
-                      ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
-
-                    borderRadius: '8px',
-                  },
-                }}
-                name='gender'
-                id='gender'
-                defaultValue=''
-                onChange={(e) =>
-                  setUserInfo({ ...userInfo, gender: e.target.value })
-                }
-                required
-              >
-                <Option value=''>Select your gender</Option>
-                <Option value='Male'>Male</Option>
-                <Option value='Female'>Female</Option>
-              </Select>
-            </Grid>
-          </Grid>
-
-          <Button
-            xs={12}
-            type='submit'
-            sx={{
-              boxShadow: ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
-              background: '#be3144',
-              ':hover': { backgroundColor: '#9e2837', opacity: '95%' },
-            }}
-          >
-            Submit
-          </Button>
-        </Stack>
-      </form>
+            <Button
+              xs={12}
+              type='submit'
+              sx={{
+                background: '#be3144',
+                ':hover': { backgroundColor: '#9e2837', opacity: '95%' },
+              }}
+            >
+              Submit
+            </Button>
+          </Stack>
+        </form>
+      </Grid>
     </Container>
   );
 }

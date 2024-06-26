@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import IconButton from '@mui/joy/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { FormControl } from '@mui/joy';
+import { FormControl, Typography } from '@mui/joy';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -46,7 +46,7 @@ function LoginForm() {
       onSubmit={login}
     >
       <Stack spacing={2}>
-        <h2>Sign In</h2>
+        <Typography level={'h3'}>Sign In</Typography>
         {errors.loginMessage && (
           <h3
             className='alert'
@@ -56,7 +56,12 @@ function LoginForm() {
           </h3>
         )}
         <FormControl>
-          <FormLabel htmlFor='username'>Username </FormLabel>
+          <FormLabel
+            htmlFor='username'
+            sx={{ color: '#be3144' }}
+          >
+            Username{' '}
+          </FormLabel>
           <Input
             autoFocus
             autoComplete='off'
@@ -73,7 +78,7 @@ function LoginForm() {
               },
               '&:focus-within::before': {
                 boxShadow:
-                  ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+                  ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
                 borderRadius: '8px',
               },
             }}
@@ -86,7 +91,12 @@ function LoginForm() {
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor='password'>Password</FormLabel>
+          <FormLabel
+            htmlFor='password'
+            sx={{ color: '#be3144' }}
+          >
+            Password
+          </FormLabel>
           <Input
             sx={{
               margin: '5px',
@@ -101,7 +111,7 @@ function LoginForm() {
               },
               '&:focus-within::before': {
                 boxShadow:
-                  ' 10px 10px 30px  #aeaec0 , -10px -10px 30px  #FFFFFF',
+                  ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
                 borderRadius: '8px',
               },
             }}
