@@ -5,8 +5,11 @@ import {
 } from 'react-router-dom/cjs/react-router-dom.min';
 import { useEffect } from 'react';
 import ExerciseStepItem from './ExerciseStepItem';
+import { IconButton, Container, AspectRatio } from '@mui/joy';
+import { ChevronLeft } from '@mui/icons-material';
+import { List } from '@mui/material';
 
-export default function ExerciseDetailsPage() {
+export default function ExerciseDetailsPage({ id }) {
   const params = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -17,23 +20,42 @@ export default function ExerciseDetailsPage() {
   }, []);
 
   return (
-    <>
-      <button onClick={() => history.goBack()}>Insert back arrow</button>
+    <Container
+      sx={{
+        display: 'flex',
+        alignItems: 'start',
+        flexDirection: 'column',
+      }}
+    >
+      <IconButton
+        onClick={() => history.goBack()}
+        sx={{
+          mb: 2,
+          flex: 0,
+          boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+        }}
+      >
+        <ChevronLeft />
+      </IconButton>
       <div>
-        <img
-          src={exerciseDetails.image_url}
-          alt={exerciseDetails.name}
-        />
+        <AspectRatio sx={{ borderRadius: 8 }}>
+          {exerciseDetails.video_url ? (
+            <video src={exerciseDetails.video_url} />
+          ) : (
+            <img src='/Vidoe-placeholder.png' />
+          )}
+        </AspectRatio>
+
         <h2>{exerciseDetails.name}</h2>
-        <ul>
+        <List>
           {exerciseDetails.steps?.map((s) => (
             <ExerciseStepItem
               s={s}
               key={s.step_number}
             />
           ))}
-        </ul>
+        </List>
       </div>
-    </>
+    </Container>
   );
 }
