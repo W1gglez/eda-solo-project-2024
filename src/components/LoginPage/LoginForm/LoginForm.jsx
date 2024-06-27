@@ -63,16 +63,12 @@ function LoginForm() {
             Username{' '}
           </FormLabel>
           <Input
-            autoFocus
             autoComplete='off'
             sx={{
               margin: '5px',
               mb: '10px',
               backgroundColor: '#d3d6db',
               border: 'none',
-              boxShadow: 'none',
-              // borderRadius: '0',
-              // borderBottom: '1px solid #303841',
               boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
 
               '&:focus-within': {
@@ -105,9 +101,6 @@ function LoginForm() {
               mb: '10px',
               backgroundColor: '#d3d6db',
               border: 'none',
-              boxShadow: 'none',
-              // borderRadius: '0',
-              // borderBottom: '1px solid #303841',
               boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
               '&:focus-within': {
                 border: 'none',

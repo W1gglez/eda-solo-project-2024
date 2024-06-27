@@ -1,6 +1,5 @@
 import { Add } from '@mui/icons-material';
 import {
-  Button,
   Stack,
   Grid,
   Typography,
@@ -82,10 +81,6 @@ export default function ExerciseDisplay({ search }) {
           spacing={2}
           sx={{ display: 'flex', justifyContent: 'Center' }}
         >
-          {/* <Grid
-            xs
-            sx={{ display: 'flex' }}
-          > */}
           <ButtonGroup
             sx={{
               flex: 1,
@@ -117,43 +112,7 @@ export default function ExerciseDisplay({ search }) {
             >
               <ChevronRight />
             </IconButton>
-            {/* <Button
-              sx={{
-                flex: 1,
-                background: '#be3144',
-                color: 'white',
-                ':hover': { backgroundColor: '#9e2837', opacity: '95%' },
-              }}
-              onClick={() => {
-                search.page = search.page > 1 ? search.page - 1 : search.page;
-                dispatch({ type: 'FETCH_EXERCISES', payload: search });
-              }}
-            >
-              Previous Page
-            </Button> */}
-            {/* </Grid>
-          <Grid
-            xs
-            sx={{ display: 'flex' }}
-          > */}
-            {/* <Button
-              sx={{
-                flex: 1,
-                background: '#be3144',
-                ':hover': { backgroundColor: '#9e2837', opacity: '95%' },
-              }}
-              onClick={() => {
-                search.page =
-                  search.page < exercises.totalPages
-                    ? search.page + 1
-                    : search.page;
-                dispatch({ type: 'FETCH_EXERCISES', payload: search });
-              }}
-            >
-              Next Page
-            </Button> */}
           </ButtonGroup>
-          {/* </Grid> */}
         </Grid>
       )}
     </Grid>

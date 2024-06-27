@@ -4,7 +4,9 @@ import { useHistory } from 'react-router-dom';
 import Button from '@mui/joy/Button';
 import Container from '@mui/joy/Container';
 import Grid from '@mui/joy/Grid';
-import { Typography } from '@mui/joy';
+import Typography from '@mui/joy/Typography';
+import { IconButton } from '@mui/joy';
+import { Clear } from '@mui/icons-material';
 
 function LoginPage() {
   const history = useHistory();
@@ -15,9 +17,20 @@ function LoginPage() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '75vh',
+        height: '85vh',
       }}
     >
+      <IconButton
+        onClick={() => history.push('/')}
+        sx={{
+          position: 'absolute',
+          top: '3%',
+          right: '5%',
+          boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+        }}
+      >
+        <Clear />
+      </IconButton>
       <Grid
         container
         spacing={3}
