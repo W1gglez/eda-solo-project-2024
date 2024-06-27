@@ -4,6 +4,15 @@ import {
 } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import {
+  Container,
+  Grid,
+  Input,
+  IconButton,
+  Button,
+  Typography,
+} from '@mui/joy';
+import { Search, ChevronLeft } from '@mui/icons-material';
 import AddExerciseDisplay from './AddExerciseDisplay/AddExerciseDisplay';
 import AddSetForm from './AddSetForm/AddSetForm';
 import ExerciseDisplay from '../ExerciseLibraryPage/ExerciseDisplay/ExerciseDisplay';
@@ -50,50 +59,145 @@ export default function AddExercisePage() {
   };
 
   return (
-    <>
-      <button
-        onClick={() => {
-          history.goBack();
-          dispatch({ type: 'CLEAR_DETAILS' });
+    <Container
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          width: '90vw',
+          maxWidth: '600px',
         }}
       >
-        Insert Back Arrow
-      </button>
-      <h4>{setInfo.exercise_name}</h4>
-      {loading ? (
-        <></>
-      ) : setInfo.exercise_id ? (
-        <>
-          <AddExerciseDisplay />
-          {displayForm ? (
-            <AddSetForm setDisplayForm={setDisplayForm} />
-          ) : (
-            <>
-              <button onClick={() => setDisplayForm(true)}>Add Set</button>
-              <button onClick={() => handleLogExercise()}>Log Exercise</button>
-            </>
-          )}
-        </>
-      ) : (
-        <>
-          <form onSubmit={handleSubmit}>
-            <input
-              type='text'
-              value={searchQuery.search}
-              onChange={(e) =>
-                setSearch({ ...searchQuery, search: e.target.value })
-              }
-              placeholder='Search'
-            />
-          </form>
-          {displayResults && (
-            <ExerciseDisplay
-              search={searchQuery}
-              setDisplayForm={setDisplayForm}
-            />
-          )}
-        </>
-      )}
-    </>
+        <Grid
+          xs={2}
+          sx={{ textAlign: 'center' }}
+        >
+          <IconButton
+            onClick={() => {
+              history.goBack();
+              dispatch({ type: 'CLEAR_DETAILS' });
+            }}
+            sx={{
+              flex: 0,
+              boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+            }}
+          >
+            <ChevronLeft />
+          </IconButton>
+        </Grid>
+
+        {loading ? (
+          <></>
+        ) : setInfo.exercise_id ? (
+          <>
+            <Grid
+              xs={10}
+              sx={{ justifyContent: 'center', alignContent: 'center' }}
+            >
+              <Typography level='h3'>{setInfo.exercise_name}</Typography>
+            </Grid>
+            <Grid xs={12}>
+              <AddExerciseDisplay />
+              {displayForm ? (
+                <AddSetForm setDisplayForm={setDisplayForm} />
+              ) : (
+                <Grid
+                  container
+                  xs={12}
+                  spacing={2}
+                  sx={{ justifyContent: 'center' }}
+                >
+                  <Grid
+                    xs={6}
+                    sx={{ display: 'flex', flex: 1 }}
+                  >
+                    <Button
+                      sx={{
+                        flex: 1,
+                        background: '#be3144',
+                        ':hover': {
+                          backgroundColor: '#9e2837',
+                          opacity: '95%',
+                        },
+                      }}
+                      onClick={() => setDisplayForm(true)}
+                    >
+                      Add Set
+                    </Button>
+                  </Grid>
+                  <Grid
+                    xs={6}
+                    sx={{ display: 'flex', flex: 1 }}
+                  >
+                    <Button
+                      sx={{
+                        flex: 1,
+                        background: '#be3144',
+                        ':hover': {
+                          backgroundColor: '#9e2837',
+                          opacity: '95%',
+                        },
+                      }}
+                      onClick={() => handleLogExercise()}
+                    >
+                      Log Exercise
+                    </Button>
+                  </Grid>
+                </Grid>
+              )}
+            </Grid>
+          </>
+        ) : (
+          <>
+            <Grid
+              xs={10}
+              sx={{ alignContent: 'center' }}
+            >
+              <Typography level='h3'>Add Exercise</Typography>
+            </Grid>
+            <Grid xs={12}>
+              <form onSubmit={handleSubmit}>
+                <Input
+                  sx={{
+                    margin: '5px',
+                    mb: '10px',
+                    backgroundColor: '#d3d6db',
+                    border: 'none',
+                    boxShadow:
+                      ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+                    '&:focus-within': {
+                      border: 'none',
+                    },
+                    '&:focus-within::before': {
+                      boxShadow:
+                        ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                      borderRadius: '8px',
+                    },
+                  }}
+                  endDecorator={<Search />}
+                  type='search'
+                  value={searchQuery.search}
+                  onChange={(e) =>
+                    setSearch({ ...searchQuery, search: e.target.value })
+                  }
+                  placeholder='Search'
+                />
+              </form>
+            </Grid>
+            {displayResults && (
+              <ExerciseDisplay
+                search={searchQuery}
+                setDisplayForm={setDisplayForm}
+              />
+            )}
+          </>
+        )}
+      </Grid>
+    </Container>
   );
 }

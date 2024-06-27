@@ -52,18 +52,6 @@ export default function WorkoutLogDisplay() {
               ))}
             </tbody>
           </table>
-
-          {/* <table>
-              <tbody>
-              {workoutLog.set_info.map((s) => (
-                <tr key={s.set_id}>
-                <td>{s.set_number}</td>
-                <td>{s.reps}</td>
-                <td>{s.weight}</td>
-                </tr>
-                ))}
-                </tbody>
-                </table> */}
         </div>
       )}
     </>
