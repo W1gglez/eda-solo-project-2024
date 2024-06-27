@@ -4,6 +4,9 @@ import { useHistory } from 'react-router-dom';
 import Button from '@mui/joy/Button';
 import Container from '@mui/joy/Container';
 import Grid from '@mui/joy/Grid';
+import Typography from '@mui/joy/Typography';
+import { IconButton } from '@mui/joy';
+import { Clear } from '@mui/icons-material';
 
 function LoginPage() {
   const history = useHistory();
@@ -14,9 +17,20 @@ function LoginPage() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '75vh',
+        height: '85vh',
       }}
     >
+      <IconButton
+        onClick={() => history.push('/')}
+        sx={{
+          position: 'absolute',
+          top: '3%',
+          right: '5%',
+          boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+        }}
+      >
+        <Clear />
+      </IconButton>
       <Grid
         container
         spacing={3}
@@ -31,27 +45,38 @@ function LoginPage() {
         </Grid>
         <Grid
           xs={12}
-          sx={{ textAlign: 'center' }}
+          container
         >
-          <Button
+          <Grid xs={8}>
+            <p>Need an account?</p>
+          </Grid>
+          <Grid
+            xs={4}
             sx={{
-              margin: 'auto',
-              padding: 0,
-              background: 'none',
-              borderbottom: '1px solid #303841',
-              color: '#303841',
-              ':hover': {
-                bgcolor: 'transparent',
-                borderColor: '1px solid #be3144',
-                color: '#be3144',
-              },
-            }}
-            onClick={() => {
-              history.push('/registration');
+              display: 'flex',
+              justifyContent: 'center',
             }}
           >
-            Sign Up
-          </Button>
+            <Button
+              sx={{
+                margin: 'auto',
+                padding: 0,
+                background: 'none',
+                borderbottom: '1px solid #303841',
+                color: '#303841',
+                ':hover': {
+                  bgcolor: 'transparent',
+                  borderColor: '1px solid #be3144',
+                  color: '#be3144',
+                },
+              }}
+              onClick={() => {
+                history.push('/registration');
+              }}
+            >
+              <Typography level='body-lg'>Sign Up</Typography>
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </Container>

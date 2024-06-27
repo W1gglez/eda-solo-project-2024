@@ -5,6 +5,9 @@ import RegisterForm from './RegisterForm/RegisterForm';
 import Button from '@mui/joy/Button';
 import Container from '@mui/joy/Container';
 import Grid from '@mui/joy/Grid';
+import Typography from '@mui/joy/Typography';
+import IconButton from '@mui/joy/IconButton';
+import Clear from '@mui/icons-material/Clear';
 
 function RegisterPage() {
   const history = useHistory();
@@ -15,9 +18,20 @@ function RegisterPage() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '75vh',
+        height: '85vh',
       }}
     >
+      <IconButton
+        onClick={() => history.push('/')}
+        sx={{
+          position: 'absolute',
+          top: '3%',
+          right: '5%',
+          boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+        }}
+      >
+        <Clear />
+      </IconButton>
       <Grid
         container
         spacing={3}
@@ -35,7 +49,7 @@ function RegisterPage() {
           xs={12}
         >
           <Grid xs={8}>
-            <p>Have an Account?</p>
+            <p>Have an account?</p>
           </Grid>
           <Grid
             xs={4}
@@ -62,7 +76,7 @@ function RegisterPage() {
                 history.push('/login');
               }}
             >
-              Sign In
+              <Typography level='body-lg'>Sign In</Typography>
             </Button>
           </Grid>
         </Grid>
