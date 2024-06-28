@@ -64,7 +64,6 @@ export default function WorkoutLogPage() {
                   ':hover': { backgroundColor: '#9e2837', opacity: '95%' },
                 }}
                 onClick={() => {
-                  // history.push(`/add-exercise/${workoutLog.workout_id}`);
                   history.push(`/add-exercise`);
                 }}
               >

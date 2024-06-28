@@ -21,12 +21,10 @@ import {
 } from '@mui/joy';
 import { Search, ChevronLeft } from '@mui/icons-material';
 import AddExerciseDisplay from './AddExerciseDisplay/AddExerciseDisplay';
-import AddSetForm from './AddSetForm/AddSetForm';
 import ExerciseDisplay from '../ExerciseLibraryPage/ExerciseDisplay/ExerciseDisplay';
 
 export default function AddExercisePage() {
   const history = useHistory();
-  const params = useParams();
   const dispatch = useDispatch();
   const [displayForm, setDisplayForm] = useState(false);
   const [loading, setLoading] = useState(true);
