@@ -39,39 +39,40 @@ export default function ExerciseDisplay({ search }) {
             overflow: 'auto',
           }}
         >
-          {exercises.data?.map((e, i) => {
-            return (
-              <Box sx={{ display: 'flex' }}>
-                <Typography
-                  sx={{ flex: 1 }}
-                  key={e.id}
-                  onClick={() => {
-                    history.push(`/exercise-details/${e.id}`);
-                  }}
+          {exercises.data?.map((e, i) => (
+            <Box
+              key={i}
+              sx={{ display: 'flex' }}
+            >
+              <Typography
+                sx={{ flex: 1 }}
+                key={e.id}
+                onClick={() => {
+                  history.push(`/exercise-details/${e.id}`);
+                }}
+              >
+                {e.name}
+              </Typography>
+              {location.pathname === '/home' ? (
+                <></>
+              ) : (
+                <IconButton
+                  sx={{ flex: 0.5 }}
+                  onClick={() =>
+                    dispatch({
+                      type: 'SET_EXERCISE_ID',
+                      payload: {
+                        exercise_id: e.id,
+                        exercise_name: e.name,
+                      },
+                    })
+                  }
                 >
-                  {e.name}
-                </Typography>
-                {location.pathname === '/home' ? (
-                  <></>
-                ) : (
-                  <IconButton
-                    sx={{ flex: 0.5 }}
-                    onClick={() =>
-                      dispatch({
-                        type: 'SET_EXERCISE_ID',
-                        payload: {
-                          exercise_id: e.id,
-                          exercise_name: e.name,
-                        },
-                      })
-                    }
-                  >
-                    <Add />
-                  </IconButton>
-                )}
-              </Box>
-            );
-          })}
+                  <Add />
+                </IconButton>
+              )}
+            </Box>
+          ))}
         </Stack>
       </Grid>
       {exercises.totalPages <= 1 ? (

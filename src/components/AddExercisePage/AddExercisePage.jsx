@@ -11,6 +11,13 @@ import {
   IconButton,
   Button,
   Typography,
+  Modal,
+  ModalClose,
+  ModalDialog,
+  DialogTitle,
+  Stack,
+  FormControl,
+  FormLabel,
 } from '@mui/joy';
 import { Search, ChevronLeft } from '@mui/icons-material';
 import AddExerciseDisplay from './AddExerciseDisplay/AddExerciseDisplay';
@@ -58,6 +65,23 @@ export default function AddExercisePage() {
     setSearch({ ...searchQuery, search: '' });
   };
 
+  const [set, setSet] = useState({ reps: 0, weight: 0 });
+
+  const handleAddSet = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: 'SET_SET_INFO',
+      payload: [
+        ...setInfo.set_info,
+        {
+          ...set,
+          set_number: setInfo.set_info.length + 1,
+        },
+      ],
+    });
+    setDisplayForm(false);
+  };
+
   return (
     <Container
       sx={{
@@ -91,6 +115,85 @@ export default function AddExercisePage() {
           </IconButton>
         </Grid>
 
+        <Modal
+          open={displayForm}
+          onClose={() => setDisplayForm(false)}
+        >
+          <ModalDialog sx={{ bgcolor: '#d3d6db' }}>
+            <ModalClose />
+
+            <DialogTitle>Add Set</DialogTitle>
+            <form onSubmit={handleAddSet}>
+              <Stack spacing={1}>
+                <FormControl>
+                  <FormLabel htmlFor='reps'>Reps</FormLabel>
+                  <Input
+                    autoComplete='off'
+                    sx={{
+                      margin: '5px',
+                      mb: '10px',
+                      backgroundColor: '#d3d6db',
+                      border: 'none',
+                      boxShadow:
+                        ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
+                      '&:focus-within': {
+                        border: 'none',
+                      },
+                      '&:focus-within::before': {
+                        boxShadow:
+                          ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                        borderRadius: '8px',
+                      },
+                    }}
+                    id='reps'
+                    type='number'
+                    onChange={(e) => setSet({ ...set, reps: e.target.value })}
+                    required
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor='weight'>Weight:</FormLabel>
+                  <Input
+                    autoComplete='off'
+                    sx={{
+                      margin: '5px',
+                      mb: '10px',
+                      backgroundColor: '#d3d6db',
+                      border: 'none',
+                      boxShadow:
+                        ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
+                      '&:focus-within': {
+                        border: 'none',
+                      },
+                      '&:focus-within::before': {
+                        boxShadow:
+                          ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                        borderRadius: '8px',
+                      },
+                    }}
+                    type='number'
+                    onChange={(e) => setSet({ ...set, weight: e.target.value })}
+                    required
+                  />
+                </FormControl>
+                <Button
+                  sx={{
+                    background: '#be3144',
+                    ':hover': {
+                      backgroundColor: '#9e2837',
+                      opacity: '95%',
+                    },
+                  }}
+                  type='submit'
+                >
+                  Submit
+                </Button>
+              </Stack>
+            </form>
+          </ModalDialog>
+        </Modal>
         {loading ? (
           <></>
         ) : setInfo.exercise_id ? (
@@ -103,53 +206,53 @@ export default function AddExercisePage() {
             </Grid>
             <Grid xs={12}>
               <AddExerciseDisplay />
-              {displayForm ? (
+              {/* {displayForm ? (
                 <AddSetForm setDisplayForm={setDisplayForm} />
-              ) : (
+              ) : ( */}
+              <Grid
+                container
+                xs={12}
+                spacing={2}
+                sx={{ justifyContent: 'center' }}
+              >
                 <Grid
-                  container
-                  xs={12}
-                  spacing={2}
-                  sx={{ justifyContent: 'center' }}
+                  xs={6}
+                  sx={{ display: 'flex', flex: 1 }}
                 >
-                  <Grid
-                    xs={6}
-                    sx={{ display: 'flex', flex: 1 }}
+                  <Button
+                    sx={{
+                      flex: 1,
+                      background: '#be3144',
+                      ':hover': {
+                        backgroundColor: '#9e2837',
+                        opacity: '95%',
+                      },
+                    }}
+                    onClick={() => setDisplayForm(true)}
                   >
-                    <Button
-                      sx={{
-                        flex: 1,
-                        background: '#be3144',
-                        ':hover': {
-                          backgroundColor: '#9e2837',
-                          opacity: '95%',
-                        },
-                      }}
-                      onClick={() => setDisplayForm(true)}
-                    >
-                      Add Set
-                    </Button>
-                  </Grid>
-                  <Grid
-                    xs={6}
-                    sx={{ display: 'flex', flex: 1 }}
-                  >
-                    <Button
-                      sx={{
-                        flex: 1,
-                        background: '#be3144',
-                        ':hover': {
-                          backgroundColor: '#9e2837',
-                          opacity: '95%',
-                        },
-                      }}
-                      onClick={() => handleLogExercise()}
-                    >
-                      Log Exercise
-                    </Button>
-                  </Grid>
+                    Add Set
+                  </Button>
                 </Grid>
-              )}
+                <Grid
+                  xs={6}
+                  sx={{ display: 'flex', flex: 1 }}
+                >
+                  <Button
+                    sx={{
+                      flex: 1,
+                      background: '#be3144',
+                      ':hover': {
+                        backgroundColor: '#9e2837',
+                        opacity: '95%',
+                      },
+                    }}
+                    onClick={() => handleLogExercise()}
+                  >
+                    Log Exercise
+                  </Button>
+                </Grid>
+              </Grid>
+              {/* )} */}
             </Grid>
           </>
         ) : (

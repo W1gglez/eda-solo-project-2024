@@ -30,14 +30,17 @@ export default function WorkoutLogPage() {
     >
       <Grid
         container
-        spacing={2}
+        spacing={3}
         sx={{
           width: '90vw',
           maxWidth: '400px',
         }}
       >
-        <Grid xs={12}>
-          <Typography level='title-lg'>Workout Log</Typography>
+        <Grid
+          xs={12}
+          sx={{ textAlign: 'center' }}
+        >
+          <Typography level='h3'>Workout Log</Typography>
         </Grid>
         <Grid
           xs={12}

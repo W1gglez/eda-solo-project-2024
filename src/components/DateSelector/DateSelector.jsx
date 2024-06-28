@@ -28,10 +28,11 @@ export default function DateSelector() {
       <IconButton
         sx={{
           flex: 1,
-          '&:focus': {
-            bgcolor: '#c1c4c9',
+          ':hover': {
+            bgcolor: 'inherit',
           },
-          '&:focus-within': {
+          '&:active': {
+            bgcolor: '#c1c4c9',
             boxShadow:
               ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
           },
@@ -65,10 +66,11 @@ export default function DateSelector() {
       <IconButton
         sx={{
           flex: 1,
-          '&:focus': {
-            bgcolor: '#c1c4c9',
+          ':hover': {
+            bgcolor: 'inherit',
           },
-          '&:focus-within': {
+          '&:active': {
+            bgcolor: '#c1c4c9',
             boxShadow:
               ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
           },
