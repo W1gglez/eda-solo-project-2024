@@ -13,6 +13,7 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom/cjs/react-router-dom.min';
+import { Box } from '@mui/material';
 
 export default function ExerciseDisplay({ search }) {
   const location = useLocation();
@@ -26,8 +27,8 @@ export default function ExerciseDisplay({ search }) {
     <Grid
       container
       xs={12}
-      sx={{ margin: 'auto', width: '80vw' }}
-      spacing={2}
+      sx={{ margin: 'auto', width: '80vw', maxWidth: '550px' }}
+      spacing={4}
     >
       <Grid xs={12}>
         <Stack
@@ -38,38 +39,40 @@ export default function ExerciseDisplay({ search }) {
             overflow: 'auto',
           }}
         >
-          {exercises.data?.map((e, i) => {
-            return (
-              <>
-                <Typography
-                  key={e.id}
-                  onClick={() => {
-                    history.push(`/exercise-details/${e.id}`);
-                  }}
+          {exercises.data?.map((e, i) => (
+            <Box
+              key={i}
+              sx={{ display: 'flex' }}
+            >
+              <Typography
+                sx={{ flex: 1, cursor: 'pointer' }}
+                key={e.id}
+                onClick={() => {
+                  history.push(`/exercise-details/${e.id}`);
+                }}
+              >
+                {e.name}
+              </Typography>
+              {location.pathname === '/home' ? (
+                <></>
+              ) : (
+                <IconButton
+                  sx={{ flex: 0.5 }}
+                  onClick={() =>
+                    dispatch({
+                      type: 'SET_EXERCISE_ID',
+                      payload: {
+                        exercise_id: e.id,
+                        exercise_name: e.name,
+                      },
+                    })
+                  }
                 >
-                  {e.name}
-                  {location.pathname === '/home' ? (
-                    <></>
-                  ) : (
-                    <IconButton
-                      variant='success'
-                      onClick={() =>
-                        dispatch({
-                          type: 'SET_EXERCISE_ID',
-                          payload: {
-                            exercise_id: e.id,
-                            exercise_name: e.name,
-                          },
-                        })
-                      }
-                    >
-                      <Add />
-                    </IconButton>
-                  )}
-                </Typography>
-              </>
-            );
-          })}
+                  <Add />
+                </IconButton>
+              )}
+            </Box>
+          ))}
         </Stack>
       </Grid>
       {exercises.totalPages <= 1 ? (
@@ -84,11 +87,20 @@ export default function ExerciseDisplay({ search }) {
           <ButtonGroup
             sx={{
               flex: 1,
+              boxShadow: ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
             }}
           >
             <IconButton
               sx={{
                 flex: 1,
+                ':hover': {
+                  bgcolor: 'inherit',
+                },
+                '&:active': {
+                  bgcolor: '#c1c4c9',
+                  boxShadow:
+                    ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                },
               }}
               onClick={() => {
                 search.page = search.page > 1 ? search.page - 1 : search.page;
@@ -97,10 +109,18 @@ export default function ExerciseDisplay({ search }) {
             >
               <ChevronLeft />
             </IconButton>
-            <Divider />
+            <Divider orientation='vertical' />
             <IconButton
               sx={{
                 flex: 1,
+                ':hover': {
+                  bgcolor: 'inherit',
+                },
+                '&:active': {
+                  bgcolor: '#c1c4c9',
+                  boxShadow:
+                    ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                },
               }}
               onClick={() => {
                 search.page =

@@ -92,9 +92,9 @@ export default function UserInfoForm() {
                       mb: '10px',
                       backgroundColor: '#d3d6db',
                       border: 'none',
-                      boxShadow: 'none',
-                      borderRadius: '0',
-                      borderBottom: '1px solid #303841',
+                      boxShadow:
+                        ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
                       '&:focus-within': {
                         border: 'none',
                       },
@@ -124,9 +124,9 @@ export default function UserInfoForm() {
                       mb: '10px',
                       backgroundColor: '#d3d6db',
                       border: 'none',
-                      boxShadow: 'none',
-                      borderRadius: '0',
-                      borderBottom: '1px solid #303841',
+                      boxShadow:
+                        ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
                       '&:focus-within': {
                         border: 'none',
                       },
@@ -157,9 +157,9 @@ export default function UserInfoForm() {
                       mb: '10px',
                       backgroundColor: '#d3d6db',
                       border: 'none',
-                      boxShadow: 'none',
-                      borderRadius: '0',
-                      borderBottom: '1px solid #303841',
+                      boxShadow:
+                        ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
                       '&:focus-within': {
                         border: 'none',
                       },
@@ -193,9 +193,9 @@ export default function UserInfoForm() {
                       mb: '10px',
                       backgroundColor: '#d3d6db',
                       border: 'none',
-                      boxShadow: 'none',
-                      borderRadius: '0',
-                      borderBottom: '1px solid #303841',
+                      boxShadow:
+                        ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
+
                       '&:focus-within': {
                         border: 'none',
                       },
@@ -221,9 +221,8 @@ export default function UserInfoForm() {
                   sx={{
                     backgroundColor: '#d3d6db',
                     border: 'none',
-                    boxShadow: 'none',
-                    borderRadius: '0',
-                    borderBottom: '1px solid #303841',
+                    boxShadow:
+                      ' 5px 5px 10px  #aeaec0 , -5px -5px 10px  #FFFFFF',
 
                     '&:hover': {
                       background: 'inherit',

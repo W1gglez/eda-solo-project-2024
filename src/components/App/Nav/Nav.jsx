@@ -9,8 +9,6 @@ function Nav() {
   const user = useSelector((store) => store.user);
   const location = useLocation();
 
-  console.log(location.pathname);
-
   return (
     <div className='nav'>
       {location.pathname === '/login' ||

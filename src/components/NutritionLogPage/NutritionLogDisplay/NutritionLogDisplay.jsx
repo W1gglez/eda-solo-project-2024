@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import NutritionLogProgressBars from './NutritionLogProgressBars/NutritionLogProgressBars';
 import NutritionLogDisplayItem from './NutritionLogDisplayItem/NutritionLogDisplayItem';
+import { Grid, Stack } from '@mui/joy';
 
 export default function NutritionLogDisplay() {
   const nutritionLog = useSelector((store) => store.nutritionLog);
@@ -11,26 +12,30 @@ export default function NutritionLogDisplay() {
   };
 
   return (
-    <>
+    <Grid
+      xs={12}
+      sx={{ display: 'flex', justifyContent: 'center', width: '85vw' }}
+    >
+      {' '}
       {isAllValuesNull(nutritionLog.log_entrys[0]) ? (
         <p>Add Entry to start tracking</p>
       ) : (
-        <>
+        <Stack
+          spacing={2}
+          sx={{ flex: 1 }}
+        >
           <NutritionLogProgressBars />
-          <table>
-            <tbody>
-              {nutritionLog.log_entrys.map((f) => {
-                return (
-                  <NutritionLogDisplayItem
-                    f={f}
-                    key={f.entry_id}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-        </>
+
+          {nutritionLog.log_entrys.map((f) => {
+            return (
+              <NutritionLogDisplayItem
+                f={f}
+                key={f.entry_id}
+              />
+            );
+          })}
+        </Stack>
       )}
-    </>
+    </Grid>
   );
 }

@@ -22,7 +22,6 @@ export default function ExerciseLibrary() {
         sx={{
           width: '90vw',
           maxWidth: '400px',
-          // display: 'flex',
         }}
       >
         <Typography level='title-lg'>Exercise Library</Typography>
