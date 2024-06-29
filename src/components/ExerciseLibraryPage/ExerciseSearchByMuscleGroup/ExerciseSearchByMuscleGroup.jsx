@@ -39,6 +39,9 @@ export default function ExerciseSearchByMuscleGroup({ setDisplay }) {
               backgroundColor: '#d3d6db',
               border: 'none',
               boxShadow: ' 5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
+              ':hover': {
+                bgcolor: '#c1c4c9',
+              },
             }}
             onClick={handleClick}
           >
