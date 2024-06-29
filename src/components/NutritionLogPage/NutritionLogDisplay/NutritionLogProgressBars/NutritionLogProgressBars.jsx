@@ -37,6 +37,10 @@ export default function NutritionLogProgressBars() {
           </Grid>
           <Grid xs={6}>
             <CircularProgress
+              sx={{
+                '--CircularProgress-progressColor': '#991c1c' /*'#2e3da3' */,
+                '--CircularProgress-trackColor': '#c1c4c9',
+              }}
               size='lg'
               determinate
               value={(nutritionLog.total_calories / user.bmr) * 100}
@@ -66,6 +70,11 @@ export default function NutritionLogProgressBars() {
               {nutritionLog.total_protein}/{Math.round((user.bmr * 0.35) / 4)}g
             </Typography>
             <CircularProgress
+              sx={{
+                '--CircularProgress-progressColor': '#418511',
+                '--CircularProgress-trackColor': '#c1c4c9',
+                '--CircularProgress-progressThickness': '5px',
+              }}
               size='md'
               color='success'
               determinate
@@ -100,7 +109,11 @@ export default function NutritionLogProgressBars() {
               {nutritionLog.total_carbs}/ {Math.round((user.bmr * 0.35) / 4)}g
             </Typography>
             <CircularProgress
-              sx={{ alignItems: 'center' }}
+              sx={{
+                '--CircularProgress-progressColor': '#bf8f1f',
+                '--CircularProgress-trackColor': '#c1c4c9',
+                '--CircularProgress-progressThickness': '5px',
+              }}
               color='warning'
               size='md'
               determinate
@@ -134,6 +147,11 @@ export default function NutritionLogProgressBars() {
             </Typography>
             <CircularProgress
               color='danger'
+              sx={{
+                '--CircularProgress-progressColor': '#6239b3',
+                '--CircularProgress-trackColor': '#c1c4c9',
+                '--CircularProgress-progressThickness': '5px',
+              }}
               size='md'
               determinate
               value={
