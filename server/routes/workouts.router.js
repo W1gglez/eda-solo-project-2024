@@ -13,6 +13,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
           'date', wl.date,
           'exercises', JSON_AGG(
               JSON_BUILD_OBJECT(
+              'exercise_id', e.id,
                   'exercise_name', e."name",
                   'detail_id', wd.id,
                   'set_info', (

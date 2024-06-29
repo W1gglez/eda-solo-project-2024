@@ -115,6 +115,7 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
               </FormLabel>
               <Input
                 autoComplete='off'
+                endDecorator='g'
                 sx={{
                   margin: '5px',
                   mb: '10px',
@@ -148,6 +149,7 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
               </FormLabel>
               <Input
                 autoComplete='off'
+                endDecorator='g'
                 sx={{
                   margin: '5px',
                   mb: '10px',
@@ -182,6 +184,7 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
               </FormLabel>
               <Input
                 autoComplete='off'
+                endDecorator='g'
                 sx={{
                   margin: '5px',
                   mb: '10px',

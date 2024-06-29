@@ -241,7 +241,7 @@ export default function NutritionLogDisplayItem({ f }) {
                       <Typography sx={{ fontWeight: 600 }}>
                         Protein:{' '}
                       </Typography>
-                      {f.protein}
+                      {f.protein}g
                     </Typography>
                   </td>
                 </tr>
@@ -253,7 +253,7 @@ export default function NutritionLogDisplayItem({ f }) {
                       <Typography sx={{ fontWeight: 600 }}>
                         Carbohydrates:
                       </Typography>{' '}
-                      {f.carbs}
+                      {f.carbs}g
                     </Typography>
                   </td>
                 </tr>
@@ -263,7 +263,7 @@ export default function NutritionLogDisplayItem({ f }) {
                   <td style={{ padding: '6px 0px' }}>
                     <Typography level='body-md'>
                       <Typography sx={{ fontWeight: 600 }}>Fats: </Typography>
-                      {f.fats}
+                      {f.fats}g
                     </Typography>
                   </td>
                 </tr>
@@ -299,121 +299,6 @@ export default function NutritionLogDisplayItem({ f }) {
         </Grid>
       )}
     </Card>
-    // <tr>
-    //   <td>{f.name}</td>
-    //   <td>
-    // <Table>
-    //   <tbody>
-    //     {editable ? (
-    //       <>
-    //         <tr>
-    //           <td>
-    //             Calories:
-    //             <input
-    //               type='number'
-    //               value={newCalories}
-    //               onChange={(e) => setNewCalories(e.target.value)}
-    //               required
-    //             />
-    //           </td>
-    //         </tr>
-    //         {f.protein && (
-    //           <tr>
-    //             <td>
-    //               Protein:{' '}
-    //               <input
-    //                 type='number'
-    //                 value={newProtein}
-    //                 onChange={(e) => setNewProtein(e.target.value)}
-    //               />
-    //             </td>
-    //           </tr>
-    //         )}
-    //         {f.carbs && (
-    //           <tr>
-    //             <td>
-    //               Carbohydrates:{' '}
-    //               <input
-    //                 type='number'
-    //                 value={newCarbs}
-    //                 onChange={(e) => setNewCarbs(e.target.value)}
-    //               />
-    //             </td>
-    //           </tr>
-    //         )}
-    //         {f.fats && (
-    //           <tr>
-    //             <td>
-    //               Fats:
-    //               <input
-    //                 type='number'
-    //                 value={newFats}
-    //                 onChange={(e) => setNewFats(e.target.value)}
-    //               />
-    //             </td>
-    //           </tr>
-    //         )}
-    //       </>
-    //     ) : (
-    //       <>
-    //         <tr flex>
-    //           <td>Calories: {f.calories}</td>
-    //         </tr>
-    //         {f.protein && (
-    //           <tr>
-    //             <td>Protein: {f.protein}</td>
-    //           </tr>
-    //         )}
-    //         {f.carbs && (
-    //           <tr>
-    //             <td>Carbohydrates: {f.carbs}</td>
-    //           </tr>
-    //         )}
-    //         {f.fats && (
-    //           <tr>
-    //             <td>Fats: {f.fats}</td>
-    //           </tr>
-    //         )}
-    //       </>
-    //     )}
-    //   </tbody>
-    // </Table>
-    //   </td>
-    //   {editable ? (
-    //     <td>
-    //       <button
-    //         onClick={() => {
-    //           dispatch({
-    //             type: 'EDIT_ENTRY',
-    //             payload: {
-    //               ...f,
-    //               calories: newCalories,
-    //               protein: newProtein,
-    //               carbs: newCarbs,
-    //               fats: newFats,
-    //               date: date,
-    //             },
-    //           });
-    //           setEditable(false);
-    //         }}
-    //       >
-    //         Update Item
-    //       </button>
-    //     </td>
-    //   ) : (
-    //     <>
-    //       <td>
-    //         <button onClick={() => setEditable(true)}>Insert Edit Icon</button>
-    //       </td>
-
-    //       <td>
-    //         <button onClick={() => handleDelete(f.entry_id)}>
-    //           Insert Trash Icon
-    //         </button>
-    //       </td>
-    //     </>
-    //   )}
-    // </tr>
   );
 }
 

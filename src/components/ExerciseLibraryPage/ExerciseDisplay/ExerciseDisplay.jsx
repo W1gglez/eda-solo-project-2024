@@ -45,7 +45,7 @@ export default function ExerciseDisplay({ search }) {
               sx={{ display: 'flex' }}
             >
               <Typography
-                sx={{ flex: 1 }}
+                sx={{ flex: 1, cursor: 'pointer' }}
                 key={e.id}
                 onClick={() => {
                   history.push(`/exercise-details/${e.id}`);

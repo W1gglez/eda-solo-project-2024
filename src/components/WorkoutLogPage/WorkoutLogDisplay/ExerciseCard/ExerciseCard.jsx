@@ -3,10 +3,12 @@ import { Delete, Edit, EditOff } from '@mui/icons-material';
 import SetInfoDisplay from './SetInfoDisplay/SetInfoDisplay';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function ExerciseCard({ e }) {
   const date = useSelector((store) => store.date);
   const [isEditable, setIsEditable] = useState(false);
+  const history = useHistory();
 
   const dispatch = useDispatch();
   return (
@@ -16,7 +18,15 @@ export default function ExerciseCard({ e }) {
         boxShadow: '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
       }}
     >
-      <Typography level='title-lg'>{e.exercise_name}</Typography>
+      <Typography
+        level='title-lg'
+        sx={{ cursor: 'pointer' }}
+        onClick={() => {
+          history.push(`/exercise-details/${e.exercise_id}`);
+        }}
+      >
+        {e.exercise_name}
+      </Typography>
       <IconButton
         sx={{ position: 'absolute', top: '0.875rem', right: '0.5rem' }}
         onClick={() =>

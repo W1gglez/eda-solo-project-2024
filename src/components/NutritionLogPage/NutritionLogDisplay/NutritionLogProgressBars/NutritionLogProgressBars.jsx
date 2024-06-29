@@ -61,7 +61,7 @@ export default function NutritionLogProgressBars() {
               boxShadow: '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
             }}
           >
-            <Typography level='title-md'>Protien</Typography>
+            <Typography level='title-md'>Protein</Typography>
             <Typography level='body-sm'>
               {nutritionLog.total_protein}/{Math.round((user.bmr * 0.35) / 4)}g
             </Typography>
