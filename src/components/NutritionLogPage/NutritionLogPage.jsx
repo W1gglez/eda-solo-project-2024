@@ -10,10 +10,6 @@ export default function NutritionLogPage() {
   const [displayForm, setDisplayForm] = useState(false);
   const nutritionLog = useSelector((store) => store.nutritionLog);
   const date = useSelector((store) => store.date);
-  const [newEntry, setNewEntry] = useState({
-    log_id: nutritionLog.log_id,
-    date: date,
-  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,10 +30,11 @@ export default function NutritionLogPage() {
     >
       <Grid
         container
-        spacing={3}
+        spacing={2}
         sx={{
           width: '90vw',
           maxWidth: '400px',
+          justifyContent: 'center',
         }}
       >
         <Grid

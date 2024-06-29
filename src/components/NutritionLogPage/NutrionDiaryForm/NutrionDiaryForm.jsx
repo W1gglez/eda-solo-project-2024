@@ -28,7 +28,6 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
     setDisplayForm(false);
   };
 
-  console.table(nutritionLog);
 
   return (
     <Modal
