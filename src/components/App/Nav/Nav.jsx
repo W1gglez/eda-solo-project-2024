@@ -29,7 +29,8 @@ function Nav() {
   return (
     <div className='nav'>
       {location.pathname === '/login' ||
-      location.pathname === '/registration' ? (
+      location.pathname === '/registration' ||
+      location.pathname === '/register-user-info' ? (
         <></>
       ) : (
         <>
