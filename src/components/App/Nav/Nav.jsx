@@ -53,7 +53,13 @@ function Nav() {
       {/* If a user is logged in, show these links */}
       {user.id && user.registered === true && (
         <>
-          <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              flex: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'flex-end',
+            }}
+          >
             <Link
               className='navLink'
               to='/home'

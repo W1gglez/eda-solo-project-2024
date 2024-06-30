@@ -1,15 +1,24 @@
+import { List, ListItem, Typography } from '@mui/joy';
 import { useSelector } from 'react-redux';
 
 export default function AddExerciseDisplay() {
   const setInfo = useSelector((store) => store.setInfo);
 
   return (
-    <ul id={setInfo.exercise_name}>
+    <List
+      id={setInfo.exercise_name}
+      sx={{ ml: { xs: 8, md: 16 } }}
+    >
       {setInfo.set_info.map((s, i) => (
-        <li key={i}>
-          Set {s.set_number}: {s.reps} reps @ {s.weight} lbs
-        </li>
+        <ListItem key={i}>
+          <Typography level='body-lg'>
+            <Typography sx={{ fontWeight: 700 }}>
+              Set {s.set_number}:
+            </Typography>{' '}
+            {s.reps} reps @ {s.weight} lbs
+          </Typography>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 }

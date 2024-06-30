@@ -92,6 +92,7 @@ export default function EditSetInfoDisplay({
             sx={{
               display: 'flex',
               flexDirection: 'row',
+              justifyContent: 'space-around',
               p: 0,
             }}
           >
