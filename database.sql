@@ -1,8 +1,3 @@
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
-
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" serial primary key,
 	 "username" varChar(80) not null UNIQUE,
@@ -39,7 +34,7 @@ CREATE TABLE IF NOT EXISTS  "exercises"(
 	"id" serial primary key,
 	"name" varchar(100) not null unique,
 	"image_url" varchar(1000),
-	"video_url" varchar(1000)
+	"video_embed_id" varchar(1000)
 );
 
 CREATE TABLE IF NOT EXISTS "steps"(
@@ -1014,3 +1009,4 @@ INSERT INTO exercise_muscles (exercise_id, muscle_id) VALUES
 
 -- Deficit Deadlift
 (98, 10);
+
