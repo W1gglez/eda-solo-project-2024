@@ -16,9 +16,9 @@ export default function NutritionLogDisplayItem({ f }) {
   const dispatch = useDispatch();
   const date = useSelector((store) => store.date);
   const [newCalories, setNewCalories] = useState(f.calories);
-  const [newProtein, setNewProtein] = useState(f.protein);
-  const [newCarbs, setNewCarbs] = useState(f.carbs);
-  const [newFats, setNewFats] = useState(f.fats);
+  const [newProtein, setNewProtein] = useState(f.protein ?? '');
+  const [newCarbs, setNewCarbs] = useState(f.carbs ?? '');
+  const [newFats, setNewFats] = useState(f.fats ?? '');
   const [editable, setEditable] = useState(false);
 
   const handleDelete = (id) => {
@@ -102,129 +102,124 @@ export default function NutritionLogDisplayItem({ f }) {
                   </Grid>
                 </td>
               </tr>
-              {f.protein && (
-                <tr>
-                  <td>
+              <tr>
+                <td>
+                  <Grid
+                    container
+                    xs={12}
+                    sx={{ p: 0, flexDirection: 'row' }}
+                  >
                     <Grid
-                      container
-                      xs={12}
-                      sx={{ p: 0, flexDirection: 'row' }}
+                      xs={4}
+                      sx={{ alignContent: 'center', textAlign: 'center' }}
                     >
-                      <Grid
-                        xs={4}
-                        sx={{ alignContent: 'center', textAlign: 'center' }}
-                      >
-                        <Typography>Protein:</Typography>
-                      </Grid>
-                      <Grid xs={8}>
-                        <Input
-                          endDecorator='g'
-                          sx={{
-                            p: 0.5,
-                            bgcolor: 'inherit',
-                            boxShadow:
-                              '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
-                            '&:focus-within': {
-                              border: 'none',
-                            },
-                            '&:focus-within::before': {
-                              boxShadow:
-                                ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
-                            },
-                          }}
-                          type='number'
-                          value={newProtein}
-                          onChange={(e) => setNewProtein(e.target.value)}
-                        />
-                      </Grid>
+                      <Typography>Protein:</Typography>
                     </Grid>
-                  </td>
-                </tr>
-              )}
-              {f.carbs && (
-                <tr>
-                  <td>
+                    <Grid xs={8}>
+                      <Input
+                        endDecorator='g'
+                        sx={{
+                          p: 0.5,
+                          bgcolor: 'inherit',
+                          boxShadow:
+                            '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
+                          '&:focus-within': {
+                            border: 'none',
+                          },
+                          '&:focus-within::before': {
+                            boxShadow:
+                              ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                          },
+                        }}
+                        type='number'
+                        value={newProtein}
+                        onChange={(e) => setNewProtein(e.target.value)}
+                      />
+                    </Grid>
+                  </Grid>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <Grid
+                    container
+                    xs={12}
+                    sx={{ p: 0, flexDirection: 'row' }}
+                  >
                     <Grid
-                      container
-                      xs={12}
-                      sx={{ p: 0, flexDirection: 'row' }}
+                      xs={6}
+                      sx={{ alignContent: 'center', textAlign: 'center' }}
                     >
-                      <Grid
-                        xs={6}
-                        sx={{ alignContent: 'center', textAlign: 'center' }}
-                      >
-                        <Typography>Carbohydrates:</Typography>
-                      </Grid>
-                      <Grid xs={6}>
-                        <Input
-                          endDecorator='g'
-                          sx={{
-                            p: 0.5,
-                            bgcolor: 'inherit',
-                            boxShadow:
-                              '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
-                            '&:focus-within': {
-                              border: 'none',
-                            },
-                            '&:focus-within::before': {
-                              boxShadow:
-                                ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
-                            },
-                          }}
-                          type='number'
-                          value={newCarbs}
-                          onChange={(e) => setNewCarbs(e.target.value)}
-                        />
-                      </Grid>
+                      <Typography>Carbohydrates:</Typography>
                     </Grid>
-                  </td>
-                </tr>
-              )}
-              {f.fats && (
-                <tr>
-                  <td>
+                    <Grid xs={6}>
+                      <Input
+                        endDecorator='g'
+                        sx={{
+                          p: 0.5,
+                          bgcolor: 'inherit',
+                          boxShadow:
+                            '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
+                          '&:focus-within': {
+                            border: 'none',
+                          },
+                          '&:focus-within::before': {
+                            boxShadow:
+                              ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                          },
+                        }}
+                        type='number'
+                        value={newCarbs}
+                        onChange={(e) => setNewCarbs(e.target.value)}
+                      />
+                    </Grid>
+                  </Grid>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <Grid
+                    container
+                    xs={12}
+                    sx={{ p: 0, flexDirection: 'row' }}
+                  >
                     <Grid
-                      container
-                      xs={12}
-                      sx={{ p: 0, flexDirection: 'row' }}
+                      xs={3}
+                      sx={{ alignContent: 'center', textAlign: 'center' }}
                     >
-                      <Grid
-                        xs={3}
-                        sx={{ alignContent: 'center', textAlign: 'center' }}
-                      >
-                        <Typography>Fats:</Typography>
-                      </Grid>
-                      <Grid xs={9}>
-                        <Input
-                          endDecorator='g'
-                          sx={{
-                            p: 0.5,
-                            bgcolor: 'inherit',
-                            boxShadow:
-                              '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
-                            '&:focus-within': {
-                              border: 'none',
-                            },
-                            '&:focus-within::before': {
-                              boxShadow:
-                                ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
-                            },
-                          }}
-                          type='number'
-                          value={newFats}
-                          onChange={(e) => setNewFats(e.target.value)}
-                        />
-                      </Grid>
+                      <Typography>Fats:</Typography>
                     </Grid>
-                  </td>
-                </tr>
-              )}
+                    <Grid xs={9}>
+                      <Input
+                        endDecorator='g'
+                        sx={{
+                          p: 0.5,
+                          bgcolor: 'inherit',
+                          boxShadow:
+                            '  5px 5px 10px  #aeaec0 ,  -5px -5px 10px  #FFFFFF',
+                          '&:focus-within': {
+                            border: 'none',
+                          },
+                          '&:focus-within::before': {
+                            boxShadow:
+                              ' inset 5px 5px 10px  #aeaec0 , inset -5px -5px 10px  #FFFFFF',
+                          },
+                        }}
+                        type='number'
+                        value={newFats}
+                        onChange={(e) => setNewFats(e.target.value)}
+                      />
+                    </Grid>
+                  </Grid>
+                </td>
+              </tr>
             </>
           ) : (
             <>
-              <tr flex>
+              <tr>
                 <td style={{ padding: '0px' }}>
-                  {' '}
                   <Typography
                     sx={{ flex: 1, alignContent: 'center' }}
                     level='body-md'
