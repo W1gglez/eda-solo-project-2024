@@ -3,10 +3,16 @@ import { IconButton, Typography, Sheet } from '@mui/joy';
 import { DragHandle } from '@mui/icons-material';
 import EditSetInfoDisplay from '../EditSetInfoDisplay/EditSetInfoDisplay';
 
-export default function SetInfoDisplay({ s, i, isEditable, setIsEditable }) {
+export default function SetInfoDisplay({
+  s,
+  i,
+  isEditable,
+  setIsEditable,
+  card_index,
+}) {
   const [editSet, setEditSet] = useState(false);
   const [updatedSet, setUpdatedSet] = useState({ ...s });
-  const editBtn = document.getElementById('edit-btn');
+  const editBtn = document.querySelector(`#Card${card_index} .edit-btn`);
 
   return editSet ? (
     <EditSetInfoDisplay
@@ -34,7 +40,7 @@ export default function SetInfoDisplay({ s, i, isEditable, setIsEditable }) {
             <IconButton
               size='sm'
               sx={{ flex: 0 }}
-              onClick={() => {
+              onClick={(e) => {
                 editBtn.disabled = true;
                 setEditSet(true);
                 setIsEditable(false);

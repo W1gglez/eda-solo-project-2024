@@ -99,7 +99,7 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
                   },
                 }}
                 id='new-item-calories'
-                type='text'
+                type='number'
                 onChange={(e) =>
                   setNewEntry({ ...newEntry, calories: Number(e.target.value) })
                 }
@@ -134,7 +134,7 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
                 }}
                 placeholder='Optional'
                 id='new-item-protein'
-                type='text'
+                type='number'
                 onChange={(e) =>
                   setNewEntry({ ...newEntry, protein: Number(e.target.value) })
                 }
@@ -168,7 +168,7 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
                 }}
                 placeholder='Optional'
                 id='new-item-carbs'
-                type='text'
+                type='number'
                 onChange={(e) =>
                   setNewEntry({ ...newEntry, carbs: Number(e.target.value) })
                 }
@@ -203,7 +203,7 @@ export default function NutritionDiaryForm({ setDisplayForm, displayForm }) {
                 }}
                 placeholder='Optional'
                 id='new-item-fat'
-                type='text'
+                type='number'
                 onChange={(e) =>
                   setNewEntry({ ...newEntry, fats: Number(e.target.value) })
                 }

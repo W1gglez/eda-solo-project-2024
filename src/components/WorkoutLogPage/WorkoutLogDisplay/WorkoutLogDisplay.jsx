@@ -26,6 +26,7 @@ export default function WorkoutLogDisplay() {
             <ExerciseCard
               key={i}
               e={e}
+              i={i}
             />
           ))}
         </Stack>

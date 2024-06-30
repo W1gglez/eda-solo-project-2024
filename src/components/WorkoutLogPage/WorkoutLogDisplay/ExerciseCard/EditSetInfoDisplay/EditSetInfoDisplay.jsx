@@ -21,7 +21,6 @@ export default function EditSetInfoDisplay({
       reps: Number(newReps),
       weight: Number(newWeight),
     });
-    console.table(updatedSet);
   }, [newReps, newWeight]);
 
   return (
