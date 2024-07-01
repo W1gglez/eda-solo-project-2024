@@ -53,7 +53,7 @@ export default function UserInfoForm() {
         ...genderJson,
         user_id: user.id,
         height: heightInInches,
-        bmr: Math.round(calculateBmr(genderJson.gender)),
+        bmr: Math.round(calculateBmr(genderJson.gender) * 1.2),
       },
     });
     history.push('/home');
