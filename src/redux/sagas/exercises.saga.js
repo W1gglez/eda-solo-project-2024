@@ -2,13 +2,13 @@ import axios from 'axios';
 import { takeLeading, put } from 'redux-saga/effects';
 
 function* fetchExercises(action) {
-  let { search, page, musclegroup } = action.payload;
+  let { search, musclegroup } = action.payload;
   let query;
 
   if (!musclegroup) {
-    query = `/api/exercise?search=${search}&page=${page}`;
+    query = `/api/exercise?search=${search}`;
   } else {
-    query = `/api/exercise?musclegroup=${musclegroup}&page=${page}`;
+    query = `/api/exercise?musclegroup=${musclegroup}`;
   }
 
   try {
@@ -32,11 +32,21 @@ function* fetchMusclegroups(action) {
 }
 
 function* fetchExerciseDetails(action) {
+  const options = {
+    method: 'GET',
+    url: `https://exercisedb.p.rapidapi.com/exercises/exercise/${action.payload.id}`,
+    headers: {
+      'x-rapidapi-key': 'de6cf2fbaemsh3cc2d204aa8e529p11d6e2jsnc4b45d83ca37',
+      'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
+    },
+  };
+
   try {
-    const result = yield axios.get(
-      `/api/exercise/details/${action.payload.id}`
-    );
-    yield put({ type: 'SET_EXERCISE_DETAILS', payload: result.data[0] });
+    const result = yield axios.request(options);
+    // const result = yield axios.get(
+    //   `/api/exercise/details/${action.payload.id}`
+    // );
+    yield put({ type: 'SET_EXERCISE_DETAILS', payload: result.data });
   } catch (err) {
     console.log('Fetch exercise details GET failed', err);
   }

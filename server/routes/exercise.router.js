@@ -1,77 +1,116 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const axios = require('axios');
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 
+const RAPID_API_KEY = process.env.RAPID_API_KEY;
+
 router.get('/', async (req, res) => {
   // Validate and get query parameters
   const searchQuery = req.query.musclegroup ?? (req.query.search || '');
-  const page = parseInt(req.query.page, 10) || 1;
-  const pageSize = 25;
-  const offset = (page - 1) * pageSize;
+  // const page = parseInt(req.query.page, 10) || 1;
+  // const pageSize = 15;
+  // const offset = (page - 1) * pageSize;
 
   // Determine if the search is for a muscle group or exercise name
   const isMuscleGroupSearch = req.query.musclegroup || undefined;
 
   let query;
-  let queryParams;
-  let countQuery;
+  // let queryParams;
+  // let countQuery;
 
   if (isMuscleGroupSearch) {
-    query = `
-      SELECT exercises.id, exercises.name as name, STRING_AGG(musclegroups.name, ', ') as musclegroup_name 
-      FROM exercise_muscles
-      JOIN exercises ON exercise_muscles.exercise_id = exercises.id 
-      JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
-      WHERE musclegroups.name ILIKE $1 
-      GROUP BY exercises.id 
-      LIMIT $2 
-      OFFSET $3;
-    `;
-    queryParams = [`%${searchQuery}%`, pageSize, offset];
-    countQuery = `SELECT COUNT(exercises.id) FROM exercises 
-JOIN exercise_muscles ON exercise_muscles.exercise_id = exercises.id 
-JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id 
-WHERE "musclegroups"."name" ILIKE $1;`;
+    query = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${searchQuery}`;
+    //     query = `
+    //       SELECT exercises.id, exercises.name as name, STRING_AGG(musclegroups.name, ', ') as musclegroup_name
+    //       FROM exercise_muscles
+    //       JOIN exercises ON exercise_muscles.exercise_id = exercises.id
+    //       JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id
+    //       WHERE musclegroups.name ILIKE $1
+    //       GROUP BY exercises.id
+    //       LIMIT $2
+    //       OFFSET $3;
+    //     `;
+    //     queryParams = [`%${searchQuery}%`, pageSize, offset];
+    //     countQuery = `SELECT COUNT(exercises.id) FROM exercises
+    // JOIN exercise_muscles ON exercise_muscles.exercise_id = exercises.id
+    // JOIN musclegroups ON exercise_muscles.muscle_id = musclegroups.id
+    // WHERE "musclegroups"."name" ILIKE $1;`;
   } else {
-    query = `
-      SELECT exercises.id, exercises.name 
-      FROM exercises 
-      WHERE exercises.name ILIKE $1 
-      ORDER BY exercises.id 
-      LIMIT $2 
-      OFFSET $3;
-    `;
-    queryParams = [`%${searchQuery}%`, pageSize, offset];
-    countQuery = `SELECT COUNT(*) FROM exercises WHERE name ILIKE $1;`;
+    query = `https://exercisedb.p.rapidapi.com/exercises/name/${searchQuery}`;
+    // query = `
+    //   SELECT exercises.id, exercises.name
+    //   FROM exercises
+    //   WHERE exercises.name ILIKE $1
+    //   ORDER BY exercises.id
+    //   LIMIT $2
+    //   OFFSET $3;
+    // `;
+    // queryParams = [`%${searchQuery}%`, pageSize, offset];
+    // countQuery = `SELECT COUNT(*) FROM exercises WHERE name ILIKE $1;`;
   }
 
+  const options = {
+    method: 'GET',
+    url: query,
+    params: { limit: '0' },
+    headers: {
+      'x-rapidapi-key': RAPID_API_KEY,
+      'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
+    },
+  };
+
   try {
-    const countResult = await pool.query(countQuery, [`%${searchQuery}%`]);
-    const totalRows = parseInt(countResult.rows[0].count, 10);
-    const totalPages = Math.ceil(totalRows / pageSize);
-
-    const result = await pool.query(query, queryParams);
-
-    res.send({ data: result.rows, totalPages });
+    const response = await axios.request(options);
+    res.send(response.data);
   } catch (err) {
     console.error('Error processing GET exercises', err);
     res.sendStatus(500);
   }
+
+  // try {
+  //   const countResult = await pool.query(countQuery, [`%${searchQuery}%`]);
+  //   const totalRows = parseInt(countResult.rows[0].count, 10);
+  //   const totalPages = Math.ceil(totalRows / pageSize);
+
+  //   const result = await pool.query(query, queryParams);
+
+  //   res.send({ data: result.rows, totalPages });
+  // } catch (err) {
+  //   console.error('Error processing GET exercises', err);
+  //   res.sendStatus(500);
+  // }
 });
 
-
 router.get('/musclegroups', async (req, res) => {
-  const query = 'SELECT * FROM musclegroups;';
+  const options = {
+    method: 'GET',
+    url: 'https://exercisedb.p.rapidapi.com/exercises/bodyPartList',
+    headers: {
+      'x-rapidapi-key': RAPID_API_KEY,
+      'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
+    },
+  };
+
   try {
-    const result = await pool.query(query);
-    res.send(result.rows);
-  } catch (err) {
-    console.error('Error processing GET muscle groups', err);
+    const response = await axios.request(options);
+    res.send(response.data);
+  } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
+
+  // const query = 'SELECT * FROM musclegroups;';
+  // try {
+  //   const result = await pool.query(query);
+  //   res.send(result.rows);
+  // } catch (err) {
+  //   console.error('Error processing GET muscle groups', err);
+  //   res.sendStatus(500);
+  // }
 });
 
 

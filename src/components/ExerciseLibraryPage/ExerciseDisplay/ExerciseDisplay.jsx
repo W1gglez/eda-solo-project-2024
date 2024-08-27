@@ -21,8 +21,6 @@ export default function ExerciseDisplay({ search }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  console.log(location);
-
   return (
     <Grid
       container
@@ -39,7 +37,7 @@ export default function ExerciseDisplay({ search }) {
             overflow: 'auto',
           }}
         >
-          {exercises.data?.map((e, i) => (
+          {exercises?.map((e, i) => (
             <Box
               key={i}
               sx={{ display: 'flex' }}
@@ -51,7 +49,7 @@ export default function ExerciseDisplay({ search }) {
                   history.push(`/exercise-details/${e.id}`);
                 }}
               >
-                {e.name}
+                {e.name.charAt(0).toUpperCase() + e.name.slice(1)}
               </Typography>
               {location.pathname === '/home' ? (
                 <></>

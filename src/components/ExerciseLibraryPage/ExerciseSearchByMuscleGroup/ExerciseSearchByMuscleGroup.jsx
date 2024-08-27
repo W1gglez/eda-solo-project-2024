@@ -10,12 +10,12 @@ export default function ExerciseSearchByMuscleGroup({ setDisplay }) {
     dispatch({ type: 'FETCH_MUSCLEGROUPS' });
   }, []);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     dispatch({
       type: 'FETCH_EXERCISES',
-      payload: { musclegroup: e.target.innerText },
+      payload: { musclegroup: e.target.innerText.toLowerCase() },
     });
-    setDisplay(true);
+    await setDisplay(true);
   };
 
   return (
@@ -25,11 +25,11 @@ export default function ExerciseSearchByMuscleGroup({ setDisplay }) {
       sx={{ margin: 'auto', width: '80vw' }}
       spacing={1}
     >
-      {musclegroups.map((g) => (
+      {musclegroups.map((g, id) => (
         <Grid
           xs={6}
           sx={{ display: 'flex' }}
-          key={g.id}
+          key={id}
         >
           <Button
             sx={{
@@ -49,7 +49,7 @@ export default function ExerciseSearchByMuscleGroup({ setDisplay }) {
               fontWeight={500}
               level='body-lg'
             >
-              {g.name}
+              {g.charAt(0).toUpperCase() + g.slice(1)}
             </Typography>
           </Button>
         </Grid>
