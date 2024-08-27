@@ -21,8 +21,9 @@ router.get('/', async (req, res) => {
   let query;
   // let queryParams;
   // let countQuery;
-
-  if (isMuscleGroupSearch) {
+  if (searchQuery === '') {
+    query = 'https://exercisedb.p.rapidapi.com/exercises';
+  } else if (isMuscleGroupSearch) {
     query = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${searchQuery}`;
     //     query = `
     //       SELECT exercises.id, exercises.name as name, STRING_AGG(musclegroups.name, ', ') as musclegroup_name

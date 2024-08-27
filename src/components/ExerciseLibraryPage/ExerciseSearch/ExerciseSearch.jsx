@@ -6,15 +6,14 @@ import { Grid, Input } from '@mui/joy';
 import { Search } from '@mui/icons-material';
 
 export default function ExerciseSearch() {
-  const [searchQuery, setSearch] = useState({ search: '', page: 1 });
+  const [searchQuery, setSearch] = useState({ search: '' });
   const [display, setDisplay] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: 'FETCH_EXERCISES', payload: searchQuery });
     setDisplay(true);
-    // setSearch({ ...searchQuery, search: '' });
   };
 
   return (

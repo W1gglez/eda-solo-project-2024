@@ -6,7 +6,7 @@ function* fetchExercises(action) {
   let query;
 
   if (!musclegroup) {
-    query = `/api/exercise?search=${search}`;
+    query = `/api/exercise?search=${search}`; 
   } else {
     query = `/api/exercise?musclegroup=${musclegroup}`;
   }
